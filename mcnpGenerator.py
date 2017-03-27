@@ -55,8 +55,8 @@ def get_assembly_rod_pos(n_rings, fuel_pitch):
                 angle = 60 / n      # angle between rods on side of hexagon (Distance is pitch)
 
                 for item in range(n):
-                    pass               #TODO USE 60-90-30 triangle to find x shift from x max for angled sides
-                # Top and bottom will have constant y value
+                    pass               #TODO USE 60-90-30 triangle to find x  and y shift from x max  and y max for angled sides
+                                       # Top and bottom will have constant y value
 
 
 
