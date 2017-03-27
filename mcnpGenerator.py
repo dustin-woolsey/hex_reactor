@@ -3,8 +3,63 @@ import matplotlib.pyplot as plt
 from numpy import sin, cos, linspace, array, pi
 
 
+letter = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7}
 
 
+def get_assembly_rod_pos(n_rings, fuel_pitch):
+    '''
+
+    :param n_rings:  number of rings
+    :param fuel_pitch: center to center distance of individual fuel elements
+    :return: central rod positions
+    '''
+
+    x = [0]
+    y = [0]
+
+
+
+    for ring in range(n_rings):
+
+
+
+        if ring == 0:
+            pass                # Center position is already generated
+
+        else:
+
+            #Generate elements along symmetry lines
+            x.append(fuel_pitch * n_rings)
+            y.append(0)
+
+            x.append( - fuel_pitch * n_rings)
+            y.append(0)
+
+            x.append(cos(60) * fuel_pitch * n_rings)
+            y.append(sin(60) * fuel_pitch * n_rings)
+
+            x.append(-cos(60) * fuel_pitch * n_rings)
+            y.append(sin(60) * fuel_pitch * n_rings)
+
+            x.append(cos(60) * fuel_pitch * n_rings)
+            y.append(-sin(60) * fuel_pitch * n_rings)
+
+            x.append(-cos(60) * fuel_pitch * n_rings)
+            y.append(-sin(60) * fuel_pitch * n_rings)
+
+            #generate intermediate elements
+
+
+
+
+
+
+
+
+    centers = []
+
+
+    return centers
 
 
 
