@@ -33,9 +33,6 @@ def read_rod_pos():
                 x.append(x_p)
                 y.append(y_p)
 
-
-
-
     plt.plot(x, y, 'bo')
     plt.show()
 
@@ -51,8 +48,53 @@ def get_all_rod_pos():
     x_3 = x_1
     y_3 = [item + 14.7 for item in y_1]
 
-    plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo')
-    plt.show()
+    x_off = 12.7305
+    y_off = 14.7 / 2.0
+
+    x_4 = [item + x_off for item in x_1]
+    y_4 = [item + y_off for item in y_1]
+
+    x_5 = [item - x_off for item in x_1]
+    y_5 = [item + y_off for item in y_1]
+
+    x_6 = [item + x_off for item in x_1]
+    y_6 = [item - y_off for item in y_1]
+
+    x_7 = [item - x_off for item in x_1]
+    y_7 = [item - y_off for item in y_1]
+
+    #TEST POSITIONS
+    #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    #plt.show()
+
+    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
+    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
+
+    return  x_list , y_list
+
+
+def write_rod_surfaces():
+
+    s = ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
+        ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
+
+
+    x_l, y_l = get_all_rod_pos()
+
+    for index, x_i in enumerate(x_l):
+        y_i = y_l[index]
+
+        for i, x_it in enumerate(x_i):
+            y_it = y_i[i]
+
+            assembly_ID = index + 1
+            rod_ID = i + 1
+
+            ID = assembly_ID * 10000 + rod_ID
+
+            s += ' {}       c/z   {: 10.6f}   {: 10.6f}   0.4572 \n'.format(ID,x_it, y_it )
+
+    return s
 
 def get_assembly_rod_pos(n_rings, fuel_pitch):
     '''
@@ -185,4 +227,4 @@ def write_file(outputName, s):
 
 
 if __name__ == '__main__':
-    get_all_rod_pos()
+    write_file(outputName = 'surf_test.i', s =write_rod_surfaces())
