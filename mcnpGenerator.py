@@ -73,16 +73,87 @@ def get_all_rod_pos():
     return  x_list , y_list
 
 
-def write_rod_surfaces():
+def write_fuel_universes(x_l, y_l):
+    s = 'c ******************************************************************************\n'
+    s += 'c ** FUEL UNIVERSES: Individual FE"s\n'
+    s += 'c ==============================================================================\n'
+    s += '  90010     1  -10.5     -100 101 -20            u=100 $ Meat\n'
+    s += '  90011     2  -6.55     -102 105 21 -22         u=100 $ Cladding\n'
+    s += '  90012     3   0        -100 101 20 -21         u=100 $ Gas Gap\n'
+    s += '  90013     2  -6.55      102 -103 -22           u=100 $ Top Cap\n'
+    s += '  90014     2  -6.55     -105 106 -22            u=100 $ Bottom Cap\n'
+    s += '  90015     2  -6.55      103 -104 -23           u=100 $ Top Plug\n'
+    s += '  90016     2  -6.55     -106 107 -24            u=100 $ Bottom Plug\n'
+    s += '  90015     4  -1         104                    u=100 $ Water Above Plug\n'
+    s += '  90016     4  -1        -104 103 23             u=100 $ Water Radialy Top plug\n'
+    s += '  90017     4  -1        -107                    u=100 $ Water Below pin\n'
+    s += '  90018     4  -1         107 -106 24            u=100 $ Water Radialy Bottom plug\n'
+    s += '  90019     4  -1        -102 105 22             u=100 $ Water Around pin\n'
+    s += 'c ******************************************************************************\n'
+
+    u = 101
+    ID = 90020
+
+
+    for index, x_i in enumerate(x_l):
+        y_i = y_l[index]
+
+        for ind, x_it in enumerate(x_i):
+            y_it = y_i[ind]
+
+            s += 'c ==============================================================================\n'
+            s += '  {} like {} but u={}\n'.format(ID, 90010, u)
+            s += '  {} like {} but u={}\n'.format(ID + 1, 90011, u)
+            s += '  {} like {} but u={}\n'.format(ID + 2, 90012, u)
+            s += '  {} like {} but u={}\n'.format(ID + 3, 90013, u)
+            s += '  {} like {} but u={}\n'.format(ID + 4, 90014, u)
+            s += '  {} like {} but u={}\n'.format(ID + 5, 90015, u)
+            s += '  {} like {} but u={}\n'.format(ID + 6, 90016, u)
+            s += '  {} like {} but u={}\n'.format(ID + 7, 90017, u)
+            s += '  {} like {} but u={}\n'.format(ID + 8, 90018, u)
+            s += '  {} like {} but u={}\n'.format(ID + 9, 90019, u)
+
+            ID += 10
+            u += 1
+
+
+
+    return s
+
+def write_rod_surfaces(x_l, y_l):
 
     s = 'c ***************************************************************\n'
+    s += 'c ELEMENT SURFACES\n'
+    s += 'c ***************************************************************\n'
+    s += 'c ** Cylinders: Surface 20\n'
+    s += 'c ** Planes: Surface 100  \n'
+    s += 'c ==============================================================================\n'
+    s += 'c Cylinders **From VVER Fuel Specs PPT**\n'
+    s += '  20    cz 0.76              $ Fuel\n'
+    s += '  21    cz 0.773             $ Cladding inner\n'
+    s += '  22    cz 0.91              $ Cladding outer\n'
+    s += '  23    cz 0.6               $ Top plug\n'
+    s += '  24    cz 0.5               $ Bottom Plug\n'
+    s += 'c ==============================================================================\n'
+    s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
+    s += '  100 pz $ Fuel top\n'
+    s += '  101 pz -110.8              $ Fuel bottom\n'
+    s += '  102 pz $ Cladding top/Bottom of Top Cap\n'
+    s += '  103 pz           $ Top of Top cap/Bottom of Top Plug\n'
+    s += '  104 pz  126.8              $ Top of Top Plug\n'
+    s += '  105 pz -110.8              $ Cladding bottom/Top of Bottom Cap\n'
+    s += '  106 pz -115.8              $ Bottom of Bottom Cap/Top of Bottom Plug\n'
+    s += '  107 pz -126.8              $ Bottom of Bottom Plug\n'
+
+
+    s += 'c ***************************************************************\n'
     s += 'c ROD SURFACES\n'
     s += 'c ***************************************************************\n'
     s += ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
         ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
 
 
-    x_l, y_l = get_all_rod_pos()
+
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
@@ -261,7 +332,9 @@ def write_file(outputName, s):
 
 
 def form_string():
-    s = write_rod_surfaces()
+    x_l, y_l = get_all_rod_pos()
+    s = write_fuel_universes(x_l, y_l)
+    s += write_rod_surfaces(x_l, y_l)
     s+= write_materials()
     return s
 
