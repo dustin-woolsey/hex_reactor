@@ -75,7 +75,10 @@ def get_all_rod_pos():
 
 def write_rod_surfaces():
 
-    s = ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
+    s = 'c ***************************************************************\n'
+    s += 'c ROD SURFACES\n'
+    s += 'c ***************************************************************\n'
+    s += ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
         ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
 
 
@@ -217,14 +220,50 @@ def get_assembly_rod_pos(n_rings, fuel_pitch):
     return centers
 
 
+def write_materials():
+    s = 'c ***************************************************************\n'
+    s += 'c MATERIAL CARDS\n'
+    s += 'c ***************************************************************\n'
+    s += 'c FUEL for neutron transport (by mass fraction)\n'
+    s += 'c (only U-235, U-238) rho = 10.970 g/cc\n'
+    s += 'm1    92235.60c -0.05000 $ U-235 and mass fraction\n'
+    s += '      92238.60c -0.95000 $ U-238 and mass fraction\n'
+    s += 'c ==============================================================\n'
+    s += 'c Cladding E-110 Zr(98.78)+Nb(1.00)+O(0.10)+Fe(0.05)+Ni(0.02)\n'
+    s += 'c +Cr(0.02)+C(0.02)+Hf(0.01) [w %]\n'
+    s += 'c **From VVER440.pdf**\n'
+    s += 'c Density: 6.55 g/cc\n'
+    s += 'm2     40000.42c    -0.9878 $ Zr\n'
+    s += '       41000.70c    -0.01   $ NB\n'
+    s += '       8016.70c     -0.001  $ O\n'
+    s += '       26000.42c    -0.0005 $ Fe\n'
+    s += '       28000.42c    -0.0002 $ Ni\n'
+    s += '       24000.42c    -0.0002 $ Cr\n'
+    s += '       6000.70c     -0.0002 $ C\n'
+    s += '       72000.42c    -0.0001 $ Hf \n'
+    s += 'c===============================================================\n'
+    s += 'c Gas gap material\n'
+    s += 'c **Unknown**\n'
+    s += 'c m3\n'
+    s += 'c===============================================================\n'
+    s += 'c Moderator (H2O (99.70)+H3BO3 (0.30)) [w %]\n'
+    s += 'c Density: 0.777537g/cc ** From VVER 440.pdf**\n'
+    s += 'm4    1001.70c   -0.063116 $ H\n'
+    s += '      8016.70c   -0.80149  $ O\n'
+    s += '      5010.70c   -0.135394 $ B\n'
+
+    return s
 
 def write_file(outputName, s):
 
     with open(outputName if outputName else 'hex.i', 'w') as f:
-             f.write(s)
+        f.write(s)
 
 
-
+def form_string():
+    s = write_rod_surfaces()
+    s+= write_materials()
+    return s
 
 if __name__ == '__main__':
-    write_file(outputName = 'surf_test.i', s =write_rod_surfaces())
+    write_file(outputName = 'surf_test.i', s =form_string())

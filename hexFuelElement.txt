@@ -1,0 +1,39 @@
+c ******************************************************************************
+c ** FUEL UNIVERSES: Individual FE's (Determine density for Gas Gap {replace 0})
+c ==============================================================================
+  200     1  -10.5     -100 101 -20            u=200 $ Meat
+  201     2  -6.55     -102 105 21 -22         u=200 $ Cladding
+  202     3   0        -100 101 20 -21         u=200 $ Gas Gap
+  203     2  -6.55      102 -103 -22           u=200 $ Top Cap
+  204     2  -6.55     -105 106 -22            u=200 $ Bottom Cap
+  205     2  -6.55      103 -104 -23           u=200 $ Top Plug
+  206     2  -6.55     -106 107 -24            u=200 $ Bottom Plug
+  205     4  -1         104                    u=200 $ Water Above Plug
+  206     4  -1        -104 103 23             u=200 $ Water Radialy Top plug
+  207     4  -1        -107                    u=200 $ Water Below pin
+  208     4  -1         107 -106 24            u=200 $ Water Radialy Bottom plug
+  209     4  -1        -102 105 22             u=200 $ Water Around pin
+c ******************************************************************************
+c ** Surfaces Start 
+c ** Start positions 
+c ** Cylinders: Surface 20
+c ** Planes: Surface 100  
+c ==============================================================================  
+c Cylinders **From VVER Fuel Specs PPT**
+  20    cz 0.76              $ Fuel
+  21    cz 0.773             $ Cladding inner
+  22    cz 0.91              $ Cladding outer
+  23    cz 0.6               $ Top plug
+  24    cz 0.5               $ Bottom Plug
+c ==============================================================================  
+c Planes **Elevations from VVER Fuel Specs PPT**
+  100 pz $ Fuel top
+  101 pz -110.8              $ Fuel bottom
+  102 pz $ Cladding top/Bottom of Top Cap
+  103 pz           $ Top of Top cap/Bottom of Top Plug
+  104 pz  126.8              $ Top of Top Plug
+  105 pz -110.8              $ Cladding bottom/Top of Bottom Cap
+  106 pz -115.8              $ Bottom of Bottom Cap/Top of Bottom Plug
+  107 pz -126.8              $ Bottom of Bottom Plug 
+
+
