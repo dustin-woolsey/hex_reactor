@@ -487,4 +487,4 @@ def form_string():
 
 
 if __name__ == '__main__':
-    write_file(outputName = 'surf_test.i', s =form_string())
+    write_file(outputName = 'test.i', s =form_string())
