@@ -74,12 +74,10 @@ def get_all_rod_pos():
 
 
 
-def write_rod_position():
+def fill_rod_position():
     x_l, y_l = get_all_rod_pos()
 
-    ID = 1001
-    u=101
-
+    fill = 101
     s = ''
 
     for index, x_i in enumerate(x_l):
@@ -92,15 +90,14 @@ def write_rod_position():
             rod_ID = i + 1
 
             ID = assembly_ID * 10000 + rod_ID
-
-            s += ' {}       c/z   {: 10.6f}   {: 10.6f}   0.4572 \n'.format(ID,x_it, y_it )
-
+            ID2 = assembly_ID * 1000 + rod_ID
 
 
+            s+= '  {}     0         -{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u=7 $\n'.format(ID2, ID, fill, x_it, y_it, 0)
 
-            s+= '  {}     0         -1{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u=7 $ {}\n'.format(ID, loc, fill, x, y, height, element.location)
+            fill += 1
 
-
+    return s
 
 
 
@@ -111,16 +108,16 @@ def write_fuel_universes(x_l, y_l):
     s += 'c ==============================================================================\n'
     s += '  90010     1  -10.5     -100 101 -20            u=100 $ Meat\n'
     s += '  90011     2  -6.55     -102 105 21 -22         u=100 $ Cladding\n'
-    s += '  90012     3   0        -100 101 20 -21         u=100 $ Gas Gap\n'
+    s += '  90012     0   0        -100 101 20 -21 INP:N=1 u=100 $ Gas Gap\n'
     s += '  90013     2  -6.55      102 -103 -22           u=100 $ Top Cap\n'
     s += '  90014     2  -6.55     -105 106 -22            u=100 $ Bottom Cap\n'
     s += '  90015     2  -6.55      103 -104 -23           u=100 $ Top Plug\n'
     s += '  90016     2  -6.55     -106 107 -24            u=100 $ Bottom Plug\n'
-    s += '  90015     4  -1         104                    u=100 $ Water Above Plug\n'
-    s += '  90016     4  -1        -104 103 23             u=100 $ Water Radialy Top plug\n'
-    s += '  90017     4  -1        -107                    u=100 $ Water Below pin\n'
-    s += '  90018     4  -1         107 -106 24            u=100 $ Water Radialy Bottom plug\n'
-    s += '  90019     4  -1        -102 105 22             u=100 $ Water Around pin\n'
+    s += '  90015     3  -1         104                    u=100 $ Water Above Plug\n'
+    s += '  90016     3  -1        -104 103 23             u=100 $ Water Radialy Top plug\n'
+    s += '  90017     3  -1        -107                    u=100 $ Water Below pin\n'
+    s += '  90018     3  -1         107 -106 24            u=100 $ Water Radialy Bottom plug\n'
+    s += '  90019     3  -1        -102 105 22             u=100 $ Water Around pin\n'
     s += 'c ******************************************************************************\n'
 
     u = 101
@@ -161,11 +158,11 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ** Planes: Surface 100  \n'
     s += 'c ==============================================================================\n'
     s += 'c Cylinders **From VVER Fuel Specs PPT**\n'
-    s += '  20    cz 0.76              $ Fuel\n'
-    s += '  21    cz 0.773             $ Cladding inner\n'
-    s += '  22    cz 0.91              $ Cladding outer\n'
-    s += '  23    cz 0.6               $ Top plug\n'
-    s += '  24    cz 0.5               $ Bottom Plug\n'
+    s += '  20    cz 0.38              $ Fuel\n'
+    s += '  21    cz 0.3865            $ Cladding inner\n'
+    s += '  22    cz 0.455             $ Cladding outer\n'
+    s += '  23    cz 0.3               $ Top plug\n'
+    s += '  24    cz 0.25              $ Bottom Plug\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
@@ -345,17 +342,45 @@ def write_materials():
     s += '       6000.70c     -0.0002 $ C\n'
     s += '       72000.42c    -0.0001 $ Hf \n'
     s += 'c===============================================================\n'
-    s += 'c Gas gap material\n'
-    s += 'c **Unknown**\n'
-    s += 'c m3\n'
-    s += 'c===============================================================\n'
     s += 'c Moderator (H2O (99.70)+H3BO3 (0.30)) [w %]\n'
     s += 'c Density: 0.777537g/cc ** From VVER 440.pdf**\n'
-    s += 'm4    1001.70c   -0.063116 $ H\n'
+    s += 'm3    1001.70c   -0.063116 $ H\n'
     s += '      8016.70c   -0.80149  $ O\n'
     s += '      5010.70c   -0.135394 $ B\n'
 
     return s
+
+def write_tallys(x_l, y_l):
+    s = ''
+
+    return s
+
+
+def write_sdef():
+    s= 'c ******************************************************************************\n'
+    s+= 'c Source cards \n'
+    s+= 'c ******************************************************************************\n'
+    s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
+    s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
+    s+= 'sp1 -3\n'
+    s+= 'si2 0 15            $ radius of the active region\n'
+    s+= 'si3 -125.7 116.8    $ height of the active region\n'
+
+    return s
+
+def write_imp():
+    s = 'c ***************************************************************\n'
+    s += 'mode  n\n'
+    s+= 'kcode 100000 1.000000 10 110\n'
+
+    return s
+
+
+def write_kcode_ect():
+    s = 'c ***************************************************************\n'
+    s += 'imp:n             0            1 1165r          $ 1, 63012\n'
+    return s
+
 
 def write_file(outputName, s):
 
@@ -366,8 +391,14 @@ def write_file(outputName, s):
 def form_string():
     x_l, y_l = get_all_rod_pos()
     s = write_fuel_universes(x_l, y_l)
+    s += fill_rod_position()
     s += write_rod_surfaces(x_l, y_l)
+    s += write_kcode_ect()
     s+= write_materials()
+    s += write_imp()
+    s += write_sdef()
+    s+= write_tallys(x_l, y_l)
+
     return s
 
 if __name__ == '__main__':
