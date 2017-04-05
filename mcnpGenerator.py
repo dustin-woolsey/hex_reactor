@@ -78,7 +78,9 @@ def fill_rod_position():
     x_l, y_l = get_all_rod_pos()
 
     fill = 101
-    s = ''
+    s = 'c ******************************************************************************\n'
+    s += 'c ** Fuel Rod Position Filling\n'
+    s += 'c ==============================================================================\n'
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
@@ -163,6 +165,13 @@ def write_rod_surfaces(x_l, y_l):
     s += '  22    cz 0.455             $ Cladding outer\n'
     s += '  23    cz 0.3               $ Top plug\n'
     s += '  24    cz 0.25              $ Bottom Plug\n'
+    s += 'c ==============================================================================\n'
+    s += 'c Cylinders for core boundaries \n'
+    s += '  30    cz 40                          $ Water boundary\n'
+    s += 'c ==============================================================================\n'
+    s += 'c Planes for core boundaries\n'
+    s += '  40    pz     926.8                   $ Water top\n'
+    s += '  41    pz    -226.8                   $ Water bottom\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
@@ -375,7 +384,7 @@ def write_tallys(x_l, y_l):
     s_prime = 'c ************************* TALLY SPECIFICATION ********************************\n'
     s_prime += 'c Flux average tally for active fuel region of all 85 elements\n'
     s_prime += 'f4:n  ' + s + '\n'
-    s_prime += 'f7:n  ' + s + '\n'
+    s_prime += 'f7:n  ' + s
 
     return s_prime
 
@@ -413,7 +422,11 @@ def write_intro_mat():
 
 
 def write_main_cells():
-    s = ''
+    s = 'c ***************************************************************\n'
+    s += 'c Primary Cells\n'
+    s += 'c ***************************************************************\n'
+    s+= 'c Water around core\n'
+    s+= '  1     0       -30 -40 41     fill=7  $ Water in core\n'
 
 
     return s
@@ -441,7 +454,7 @@ def write_core_water_cell(x_l, y_l):
     s_prime = 'c**********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c**********************************************************************\n'
-    s_prime += '  666     3   '+ s + ' u = 7 \n'
+    s_prime += '  666     3   '+ s + ' u=7 \n'
 
     return s_prime
 
@@ -454,11 +467,15 @@ def write_file(outputName, s):
 def form_string():
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
+    s += 'c\n'
     s += write_main_cells()
     s += write_fuel_universes(x_l, y_l)
-    s += fill_rod_position()
+    s += 'c\n'
     s += write_core_water_cell(x_l, y_l)
+    s += fill_rod_position()
+    s += '\n'
     s += write_rod_surfaces(x_l, y_l)
+    s+= '\n'
     s += write_kcode_ect()
     s+= write_materials()
     s += write_imp()
