@@ -446,7 +446,7 @@ def write_core_water_cell(x_l, y_l):
             ID = assembly_ID * 10000 + rod_ID
             cnt += 1
 
-            if cnt == 13:
+            if cnt == 10:
                 s += '\n             '
                 cnt = 0
             s += str(ID) + ' '
