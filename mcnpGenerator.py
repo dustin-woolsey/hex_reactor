@@ -73,6 +73,38 @@ def get_all_rod_pos():
     return  x_list , y_list
 
 
+
+def write_rod_position():
+    x_l, y_l = get_all_rod_pos()
+
+    ID = 1001
+    u=101
+
+    s = ''
+
+    for index, x_i in enumerate(x_l):
+        y_i = y_l[index]
+
+        for i, x_it in enumerate(x_i):
+            y_it = y_i[i]
+
+            assembly_ID = index + 1
+            rod_ID = i + 1
+
+            ID = assembly_ID * 10000 + rod_ID
+
+            s += ' {}       c/z   {: 10.6f}   {: 10.6f}   0.4572 \n'.format(ID,x_it, y_it )
+
+
+
+
+            s+= '  {}     0         -1{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u=7 $ {}\n'.format(ID, loc, fill, x, y, height, element.location)
+
+
+
+
+
+
 def write_fuel_universes(x_l, y_l):
     s = 'c ******************************************************************************\n'
     s += 'c ** FUEL UNIVERSES: Individual FE"s\n'
