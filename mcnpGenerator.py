@@ -113,11 +113,11 @@ def write_fuel_universes(x_l, y_l):
     s += '  90014     2  -6.55     -105 106 -22            u=100 $ Bottom Cap\n'
     s += '  90015     2  -6.55      103 -104 -23           u=100 $ Top Plug\n'
     s += '  90016     2  -6.55     -106 107 -24            u=100 $ Bottom Plug\n'
-    s += '  90015     3  -1         104                    u=100 $ Water Above Plug\n'
-    s += '  90016     3  -1        -104 103 23             u=100 $ Water Radialy Top plug\n'
-    s += '  90017     3  -1        -107                    u=100 $ Water Below pin\n'
-    s += '  90018     3  -1         107 -106 24            u=100 $ Water Radialy Bottom plug\n'
-    s += '  90019     3  -1        -102 105 22             u=100 $ Water Around pin\n'
+    s += '  90015     3  -0.777537  104                    u=100 $ Water Above Plug\n'
+    s += '  90016     3  -0.777537 -104 103 23             u=100 $ Water Radialy Top plug\n'
+    s += '  90017     3  -0.777537 -107                    u=100 $ Water Below pin\n'
+    s += '  90018     3  -0.777537  107 -106 24            u=100 $ Water Radialy Bottom plug\n'
+    s += '  90019     3  -0.777537 -102 105 22             u=100 $ Water Around pin\n'
     s += 'c ******************************************************************************\n'
 
     u = 101
@@ -351,9 +351,33 @@ def write_materials():
     return s
 
 def write_tallys(x_l, y_l):
+    ID = 90010
+    count = 0
+
     s = ''
 
-    return s
+    for index, x_i in enumerate(x_l):
+        y_i = y_l[index]
+
+        for ind, x_it in enumerate(x_i):
+            y_it = y_i[ind]
+
+            if count == 11:
+                s += '&\n      '
+                count = 0
+
+            s += str(ID) + ' '
+
+            ID += 10
+            count += 1
+
+
+    s_prime = 'c ************************* TALLY SPECIFICATION ********************************\n'
+    s_prime += 'c Flux average tally for active fuel region of all 85 elements\n'
+    s_prime += 'f4:n  ' + s + '\n'
+    s_prime += 'f7:n  ' + s + '\n'
+
+    return s_prime
 
 
 def write_sdef():
@@ -381,6 +405,45 @@ def write_kcode_ect():
     s += 'imp:n             0            1 1165r          $ 1, 63012\n'
     return s
 
+def write_intro_mat():
+    s = 'c ******************************************************************************\n'
+    s+= 'c ** VVER 440 practice core design\n'
+    s+= 'c ==============================================================================\n'
+    return s
+
+
+def write_main_cells():
+    s = ''
+
+
+    return s
+
+def write_core_water_cell(x_l, y_l):
+    s = '-0.777537  '
+    cnt = 2
+    for index, x_i in enumerate(x_l):
+        y_i = y_l[index]
+
+        for i, x_it in enumerate(x_i):
+            y_it = y_i[i]
+
+            assembly_ID = index + 1
+            rod_ID = i + 1
+
+            ID = assembly_ID * 10000 + rod_ID
+            cnt += 1
+
+            if cnt == 13:
+                s += '\n             '
+                cnt = 0
+            s += str(ID) + ' '
+
+    s_prime = 'c**********************************************************************\n'
+    s_prime += 'c Water around core\n'
+    s_prime += 'c**********************************************************************\n'
+    s_prime += '  666     3   '+ s + ' u = 7 \n'
+
+    return s_prime
 
 def write_file(outputName, s):
 
@@ -390,8 +453,11 @@ def write_file(outputName, s):
 
 def form_string():
     x_l, y_l = get_all_rod_pos()
-    s = write_fuel_universes(x_l, y_l)
+    s = write_intro_mat()
+    s += write_main_cells()
+    s += write_fuel_universes(x_l, y_l)
     s += fill_rod_position()
+    s += write_core_water_cell(x_l, y_l)
     s += write_rod_surfaces(x_l, y_l)
     s += write_kcode_ect()
     s+= write_materials()
@@ -400,6 +466,8 @@ def form_string():
     s+= write_tallys(x_l, y_l)
 
     return s
+
+
 
 if __name__ == '__main__':
     write_file(outputName = 'surf_test.i', s =form_string())
