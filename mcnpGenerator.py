@@ -196,13 +196,13 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ***************************************************************\n'
     s += 'c Hexagonal SURFACES\n'
     s += 'c ***************************************************************\n'
-    s += '  300 HEX  0 0 -126.8     0 0 126.8     0 7.25 0                    $ Center FA\n'
-    s += '  301 HEX  0 14.5 -126.8  0 14.5 126.8  0 7.35 0                    $ Top middle FA\n'
-    s += '  302 HEX -12.7306 7.35 -126.8 -12.7306 7.35 126.8 -14.7 0.2 0      $ Top left FA\n'
-    s += '  303 HEX  12.7306 7.35 -126.8  12.7306 7.35 126.8  14.7 0.2 0      $ Top right FA\n'
-    s += '  304 HEX  0 -14.5 -126.8  0 -14.5 126.8  0 -7.35 0                 $ Bot middle\n'
-    s += '  305 HEX -12.7306 -7.35 -126.8  -12.7306 -7.35 126.8 -14.7 -0.2 0  $ Bot left FA\n'
-    s += '  306 HEX  12.7306 -7.35 -126.8   12.7306 -7.35 126.8  14.7 -0.2 0  $ Bot right FA\n'
+    s += ' 300 HEX  0 0 -126.8     0 0 126.8     0 7.25 0                    $ Center FA\n'
+    s += ' 301 HEX  0 14.5 -126.8  0 14.5 126.8  0 7.35 0                    $ Top middle FA\n'
+    s += ' 302 HEX -12.7306 7.35 -126.8 -12.7306 7.35 126.8 -14.7 0.2 0      $ Top left FA\n'
+    s += ' 303 HEX  12.7306 7.35 -126.8  12.7306 7.35 126.8  14.7 0.2 0      $ Top right FA\n'
+    s += ' 304 HEX  0 -14.5 -126.8  0 -14.5 126.8  0 -7.35 0                 $ Bot middle\n'
+    s += ' 305 HEX -12.7306 -7.35 -126.8  -12.7306 -7.35 126.8 -14.7 -0.2 0  $ Bot left FA\n'
+    s += ' 306 HEX  12.7306 -7.35 -126.8   12.7306 -7.35 126.8  14.7 -0.2 0  $ Bot right FA\n'
 
 
 
@@ -491,15 +491,15 @@ def write_file(outputName, s):
 def form_string():
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
-    s += 'c\n'
+#    s += 'c\n'
 #TODO REIMPLIMENT    s += write_main_cells()
     s += write_fuel_universes(x_l, y_l)
-    s += 'c\n'
+#    s += 'c\n'
 #TODO REIMPLIMENT    s += write_core_water_cell(x_l, y_l)
     s += fill_rod_position()
-    s += '\n'
+#    s += '\n'
     s += write_rod_surfaces(x_l, y_l)
-    s+= '\n'
+#    s+= '\n'
     s += write_kcode_ect()
     s+= write_materials()
     s += write_imp()
