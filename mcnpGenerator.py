@@ -108,22 +108,22 @@ def write_fuel_universes(x_l, y_l):
     s = 'c ******************************************************************************\n'
     s += 'c ** FUEL UNIVERSES: Individual FE"s\n'
     s += 'c ==============================================================================\n'
-    s += '  90010     1  -10.5     -100 101 -20    IMP:N=1 u=100 $ Meat\n'
-    s += '  90011     2  -6.55     -102 105 21 -22 IMP:N=1 u=100 $ Cladding\n'
-    s += '  90012     0   0        -100 101 20 -21 IMP:N=1 u=100 $ Gas Gap\n'
-    s += '  90013     2  -6.55      102 -103 -22   IMP:N=1 u=100 $ Top Cap\n'
-    s += '  90014     2  -6.55     -105 106 -22    IMP:N=1 u=100 $ Bottom Cap\n'
-    s += '  90015     2  -6.55      103 -104 -23   IMP:N=1 u=100 $ Top Plug\n'
-    s += '  90016     2  -6.55     -106 107 -24    IMP:N=1 u=100 $ Bottom Plug\n'
-    s += '  90015     3  -0.777537  104            IMP:N=1 u=100 $ Water Above Plug\n'
-    s += '  90016     3  -0.777537 -104 103 23     IMP:N=1 u=100 $ Water Radialy Top plug\n'
-    s += '  90017     3  -0.777537 -107            IMP:N=1 u=100 $ Water Below pin\n'
-    s += '  90018     3  -0.777537  107 -106 24    IMP:N=1 u=100 $ Water Radialy Bottom plug\n'
-    s += '  90019     3  -0.777537 -102 105 22     IMP:N=1 u=100 $ Water Around pin\n'
+    s += '  90100     1  -10.5     -100 101 -20    IMP:N=1 u=100 $ Meat\n'
+    s += '  90101     2  -6.55     -102 105 21 -22 IMP:N=1 u=100 $ Cladding\n'
+    s += '  90102     0   0        -100 101 20 -21 IMP:N=1 u=100 $ Gas Gap\n'
+    s += '  90103     2  -6.55      102 -103 -22   IMP:N=1 u=100 $ Top Cap\n'
+    s += '  90104     2  -6.55     -105 106 -22    IMP:N=1 u=100 $ Bottom Cap\n'
+    s += '  90105     2  -6.55      103 -104 -23   IMP:N=1 u=100 $ Top Plug\n'
+    s += '  90106     2  -6.55     -106 107 -24    IMP:N=1 u=100 $ Bottom Plug\n'
+    s += '  90107     3  -0.777537  104            IMP:N=1 u=100 $ Water Above Plug\n'
+    s += '  90108     3  -0.777537 -104 103 23     IMP:N=1 u=100 $ Water Radialy Top plug\n'
+    s += '  90109     3  -0.777537 -107            IMP:N=1 u=100 $ Water Below pin\n'
+    s += '  90110     3  -0.777537  107 -106 24    IMP:N=1 u=100 $ Water Radialy Bottom plug\n'
+    s += '  90111     3  -0.777537 -102 105 22     IMP:N=1 u=100 $ Water Around pin\n'
     s += 'c ******************************************************************************\n'
 
     u = 101
-    ID = 90020
+    ID = 90200
 
 
     for index, x_i in enumerate(x_l):
@@ -133,18 +133,22 @@ def write_fuel_universes(x_l, y_l):
             y_it = y_i[ind]
 
             s += 'c ==============================================================================\n'
-            s += '  {} like {} but u={}\n'.format(ID, 90010, u)
-            s += '  {} like {} but u={}\n'.format(ID + 1, 90011, u)
-            s += '  {} like {} but u={}\n'.format(ID + 2, 90012, u)
-            s += '  {} like {} but u={}\n'.format(ID + 3, 90013, u)
-            s += '  {} like {} but u={}\n'.format(ID + 4, 90014, u)
-            s += '  {} like {} but u={}\n'.format(ID + 5, 90015, u)
-            s += '  {} like {} but u={}\n'.format(ID + 6, 90016, u)
-            s += '  {} like {} but u={}\n'.format(ID + 7, 90017, u)
-            s += '  {} like {} but u={}\n'.format(ID + 8, 90018, u)
-            s += '  {} like {} but u={}\n'.format(ID + 9, 90019, u)
+            s += '  {} like {} but u={}\n'.format(ID, 90100, u)
+            s += '  {} like {} but u={}\n'.format(ID + 1, 90101, u)
+            s += '  {} like {} but u={}\n'.format(ID + 2, 90102, u)
+            s += '  {} like {} but u={}\n'.format(ID + 3, 90103, u)
+            s += '  {} like {} but u={}\n'.format(ID + 4, 90104, u)
+            s += '  {} like {} but u={}\n'.format(ID + 5, 90105, u)
+            s += '  {} like {} but u={}\n'.format(ID + 6, 90106, u)
+            s += '  {} like {} but u={}\n'.format(ID + 7, 90107, u)
+            s += '  {} like {} but u={}\n'.format(ID + 8, 90108, u)
+            s += '  {} like {} but u={}\n'.format(ID + 9, 90109, u)
+            s += '  {} like {} but u={}\n'.format(ID + 8, 90110, u)
+            s += '  {} like {} but u={}\n'.format(ID + 9, 90111, u)
 
-            ID += 10
+            ID += 100
+
+
             u += 1
 
 
@@ -389,7 +393,7 @@ def write_tallys(x_l, y_l):
 
             s += str(ID) + ' '
 
-            ID += 10
+            ID += 100
             count += 1
 
 
