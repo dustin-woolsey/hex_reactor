@@ -116,9 +116,9 @@ def write_fuel_universes(x_l, y_l):
     s += '  100105     2  -6.55      103 -104 -23   IMP:N=1 u=100 $ Top Plug\n'
     s += '  100106     2  -6.55     -106 107 -24    IMP:N=1 u=100 $ Bottom Plug\n'
     s += '  100107     3  -0.777537  104            IMP:N=1 u=100 $ Water Above Plug\n'
-    s += '  100108     3  -0.777537 -104 103 23     IMP:N=1 u=100 $ Water Radialy Top plug\n'
+    s += '  100108     3  -0.777537 -104 103 23     IMP:N=1 u=100 $ Water RadiallyTop\n'
     s += '  100109     3  -0.777537 -107            IMP:N=1 u=100 $ Water Below pin\n'
-    s += '  100110     3  -0.777537  107 -106 24    IMP:N=1 u=100 $ Water Radialy Bottom plug\n'
+    s += '  100110     3  -0.777537  107 -106 24    IMP:N=1 u=100 $ Water RadiallyBottom\n'
     s += '  100111     3  -0.777537 -102 105 22     IMP:N=1 u=100 $ Water Around pin\n'
     s += 'c ******************************************************************************\n'
 
