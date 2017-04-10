@@ -488,10 +488,10 @@ def form_string():
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
     s += 'c\n'
-    s += write_main_cells()
+#TODO REIMPLIMENT    s += write_main_cells()
     s += write_fuel_universes(x_l, y_l)
     s += 'c\n'
-    s += write_core_water_cell(x_l, y_l)
+#TODO REIMPLIMENT    s += write_core_water_cell(x_l, y_l)
     s += fill_rod_position()
     s += '\n'
     s += write_rod_surfaces(x_l, y_l)
