@@ -376,7 +376,7 @@ def write_materials():
     return s
 
 def write_tallys(x_l, y_l):
-    ID = 90010
+    ID = 100100
     count = 0
 
     s = ''
@@ -387,7 +387,7 @@ def write_tallys(x_l, y_l):
         for ind, x_it in enumerate(x_i):
             y_it = y_i[ind]
 
-            if count == 11:
+            if count == 8:
                 s += '&\n      '
                 count = 0
 
