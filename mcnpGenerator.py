@@ -438,15 +438,15 @@ def write_main_cells():
     s += 'c Primary Cells\n'
     s += 'c ***************************************************************\n'
     s+= 'c Water around core\n'
-    #s+= '  1     0       -30 -40 41     fill=7  $ Water in core\n'
+    s+= '  1     0       -30 -40 41     fill=8  $ Water in core\n'
    #TODO FIX THIS s+= '    1     0       -30 -40 41             $ Water in core \n'
-    s+= '    2     0       -300          fill=1   $ Center FA\n'
-    s+= '    3     0       -301          fill=2   $ Top middle FA\n'
-    s+= '    4     0       -302          fill=3   $ Top left FA\n'
-    s+= '    5     0       -303          fill=4   $ Top right FA\n'
-    s+= '    6     0       -304          fill=5   $ Bot middle FA\n'
-    s+= '    7     0       -305          fill=6   $ Bot left FA\n'
-    s+= '    8     0       -306          fill=7   $ Bot right FA\n'
+    #s+= '    2     0       -300          fill=1   $ Center FA\n'
+    #s+= '    3     0       -301          fill=2   $ Top middle FA\n'
+    #s+= '    4     0       -302          fill=3   $ Top left FA\n'
+    #s+= '    5     0       -303          fill=4   $ Top right FA\n'
+    #s+= '    6     0       -304          fill=5   $ Bot middle FA\n'
+    #s+= '    7     0       -305          fill=6   $ Bot left FA\n'
+    #s+= '    8     0       -306          fill=7   $ Bot right FA\n'
 
 
     return s

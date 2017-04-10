@@ -6,13 +6,7 @@ c ***************************************************************
 c Primary Cells
 c ***************************************************************
 c Water around core
-    2     0       -300          fill=1   $ Center FA
-    3     0       -301          fill=2   $ Top middle FA
-    4     0       -302          fill=3   $ Top left FA
-    5     0       -303          fill=4   $ Top right FA
-    6     0       -304          fill=5   $ Bot middle FA
-    7     0       -305          fill=6   $ Bot left FA
-    8     0       -306          fill=7   $ Bot right FA
+  1     0       -30 -40 41     fill=8  $ Water in core
 c ******************************************************************************
 c ** FUEL UNIVERSES: Individual FE"s
 c ==============================================================================
