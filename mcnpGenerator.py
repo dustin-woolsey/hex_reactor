@@ -94,8 +94,8 @@ def fill_rod_position():
             ID = assembly_ID * 10000 + rod_ID
             ID2 = assembly_ID * 1000 + rod_ID
 
-
-            s+= '  {}     0         -{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u=7 $\n'.format(ID2, ID, fill, x_it, y_it, 0)
+            un = index + 1
+            s+= '  {}     0         -{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u={} $\n'.format(ID2, ID, fill, x_it, y_it, 0, un)
 
             fill += 1
 
@@ -189,6 +189,18 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ***************************************************************\n'
     s += ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
         ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
+    s += 'c ***************************************************************\n'
+    s += 'c Hexagonal SURFACES\n'
+    s += 'c ***************************************************************\n'
+    s += '  300 HEX  0 0 -126.8     0 0 126.8     0 7.25 0                    $ Center FA\n'
+    s += '  301 HEX  0 14.5 -126.8  0 14.5 126.8  0 7.35 0                    $ Top middle FA\n'
+    s += '  302 HEX -12.7306 7.35 -126.8 -12.7306 7.35 126.8 -14.7 0.2 0      $ Top left FA\n'
+    s += '  303 HEX  12.7306 7.35 -126.8  12.7306 7.35 126.8  14.7 0.2 0      $ Top right FA\n'
+    s += '  304 HEX  0 -14.5 -126.8  0 -14.5 126.8  0 -7.35 0                 $ Bot middle\n'
+    s += '  305 HEX -12.7306 -7.35 -126.8  -12.7306 -7.35 126.8 -14.7 -0.2 0  $ Bot left FA\n'
+    s += '  306 HEX  12.7306 -7.35 -126.8   12.7306 -7.35 126.8  14.7 -0.2 0  $ Bot right FA\n'
+
+
 
 
 
@@ -426,7 +438,15 @@ def write_main_cells():
     s += 'c Primary Cells\n'
     s += 'c ***************************************************************\n'
     s+= 'c Water around core\n'
-    s+= '  1     0       -30 -40 41     fill=7  $ Water in core\n'
+    #s+= '  1     0       -30 -40 41     fill=7  $ Water in core\n'
+   #TODO FIX THIS s+= '    1     0       -30 -40 41             $ Water in core \n'
+    s+= '    2     0       -300          fill=1   $ Center FA\n'
+    s+= '    3     0       -301          fill=2   $ Top middle FA\n'
+    s+= '    4     0       -302          fill=3   $ Top left FA\n'
+    s+= '    5     0       -303          fill=4   $ Top right FA\n'
+    s+= '    6     0       -304          fill=5   $ Bot middle FA\n'
+    s+= '    7     0       -305          fill=6   $ Bot left FA\n'
+    s+= '    8     0       -306          fill=7   $ Bot right FA\n'
 
 
     return s
@@ -454,7 +474,7 @@ def write_core_water_cell(x_l, y_l):
     s_prime = 'c**********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c**********************************************************************\n'
-    s_prime += '  666     3   '+ s + ' u=7 \n'
+    s_prime += '  666     3   '+ s + ' u=8 \n'
 
     return s_prime
 

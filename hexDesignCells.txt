@@ -1,0 +1,29 @@
+c NuScale Design [Hex]
+c
+c UO2 5% enrichment
+c
+c CELLS:
+c Water around core
+  1     0       -30 -40 41             $ Water in core 
+  2     0       -300                   $ Center FA
+  3     0       -301                   $ Top middle FA
+  4     0       -302                   $ Top left FA
+  5     0       -303                   $ Top right FA
+  6     0       -304                   $ Bot middle FA
+  7     0       -305                   $ Bot left FA
+  8     0       -306                   $ Bot right FA
+c ==============================================================================  
+c Cylinders for core boundaries 
+  30    cz 40                          $ Water boundary 
+c ==============================================================================  
+c Planes for core boundaries
+  40    pz     926.8                   $ Water top
+  41    pz    -226.8                   $ Water bottom
+c Macrobodies for FA insertion
+  300 HEX  0 0 -126.8     0 0 126.8     0 7.25 0                    $ Center FA
+  301 HEX  0 14.5 -126.8  0 14.5 126.8  0 7.35 0                    $ Top middle FA
+  302 HEX -12.7306 7.35 -126.8 -12.7306 7.35 126.8 -14.7 0.2 0      $ Top left FA
+  303 HEX  12.7306 7.35 -126.8  12.7306 7.35 126.8  14.7 0.2 0      $ Top right FA
+  304 HEX  0 -14.5 -126.8  0 -14.5 126.8  0 -7.35 0                 $ Bot middle
+  305 HEX -12.7306 -7.35 -126.8  -12.7306 -7.35 126.8 -14.7 -0.2 0  $ Bot left FA
+  306 HEX  12.7306 -7.35 -126.8   12.7306 -7.35 126.8  14.7 -0.2 0  $ Bot right FA
