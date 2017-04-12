@@ -359,7 +359,7 @@ def write_materials():
     s += 'c **From VVER440.pdf**\n'
     s += 'c Density: 6.55 g/cc\n'
     s += 'm2     40000.42c    -0.9878 $ Zr\n'
-    s += '       41000.80c    -0.01   $ NB\n'
+    s += '       41093.80c    -0.01   $ NB\n'
     s += '       8016.70c     -0.001  $ O\n'
     s += '       26000.42c    -0.0005 $ Fe\n'
     s += '       28000.42c    -0.0002 $ Ni\n'
@@ -427,7 +427,7 @@ def write_imp():
 def write_kcode_ect():
     s = 'c ***************************************************************\n'
     s += 'mode  n\n'
-    s += 'kcode 100000 1.000000 10 110\n'
+    s += 'kcode 100000 1.500000 30 250 300000\n'
     return s
 
 def write_intro_mat():
@@ -504,7 +504,7 @@ def form_string():
     s += write_materials()
     s += write_imp()
     s += write_sdef()
-    s+= write_tallys(x_l, y_l)
+    s += write_tallys(x_l, y_l)
 
     return s
 
