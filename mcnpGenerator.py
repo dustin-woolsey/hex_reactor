@@ -96,6 +96,7 @@ def fill_rod_position():
             ID2 = assembly_ID * 1000 + rod_ID
 
             un = index + 1
+            fill = 100
             s+= '  {}     0         -{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u={} $\n'.format(ID2, ID, fill, x_it, y_it, 0, un)
 
             fill += 1
@@ -126,7 +127,7 @@ def write_fuel_universes(x_l, y_l):
     u = 101
     ID = 100200
 
-
+    '''
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
 
@@ -152,7 +153,7 @@ def write_fuel_universes(x_l, y_l):
 
             u += 1
 
-
+    '''
 
     return s
 
