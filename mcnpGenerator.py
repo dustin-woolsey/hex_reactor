@@ -499,17 +499,18 @@ def write_main_cells():
     #s+= '  7     0       -305                   $ Bot left FA\n'
     #s+= '  8     0       -306                   $ Bot right FA\n'
     s+= 'c Planes for hexagonal cells\n'
-    s+= '  9      0 fill=7  (-701 -702 -703 -704 -705 -706 ) $ bottom left\n'
-    s+= '  10     0 fill=5  (-707 -708 -709 702 -711 -712 ) $ upper left\n'
-    s+= '  11     0 fill=3  (-713 -704 -715 708 -701 -718 ) $ top mid\n'
-    s+= '  12     0 fill=4  (-719 702 -721 704 -707 -724 ) $ top right\n'
-    s+= '  13     0 fill=6  (-705 708 -727 -702 -713 -730 ) $ bottom right\n'
-    s+= '  14     0 fill=2  (-711 704 -733 -708 -719 -736 ) $ bottom mid\n'
-    s+= '  15     0 fill=1  (703 709 715 721 727 733 ) $ center\n'
-    s+= '  16     0 fill=8  (701 :702 :703 :704 :705 :706 )\n'
-    s+= '     (707 :708 :709 :-702 :711 :712)(713 :704 :715 :-708 :701 :718 )\n'
-    s+= '     (719 :-702 :721 :-704 :707 :724 )(705 :-708 :727 :702 :713 :730)\n'
-    s+= '     (711 :-704 :733 :708 :719 :736 )(-703 :-709 :-715 :-721 :-727 :-733 ) $CR\n'
+    s+= '  9      0 fill=7  (-40 41 -701 -702 -703 -704 -705 -706 ) u=8 $ bottom left\n'
+    s+= '  10     0 fill=5  (-40 41 -707 -708 -709 702 -711 -712 ) u=8 $ upper left\n'
+    s+= '  11     0 fill=3  (-40 41 -713 -704 -715 708 -701 -718 ) u=8 $ top mid\n'
+    s+= '  12     0 fill=4  (-40 41 -719 702 -721 704 -707 -724 ) u=8 $ top right\n'
+    s+= '  13     0 fill=6  (-40 41 -705 708 -727 -702 -713 -730 ) u=8 $ bottom right\n'
+    s+= '  14     0 fill=2  (-40 41 -711 704 -733 -708 -719 -736 ) u=8 $ bottom mid\n'
+    s+= '  15     0 fill=1  (-40 41 703 709 715 721 727 733 ) u=8 $ center\n'
+    s+= '  16     0 fill=8   -40 41 -305 $ water\n'
+    #s+= '  16     0 fill=8  (701 :702 :703 :704 :705 :706 )\n'
+    #s+= '     (707 :708 :709 :-702 :711 :712)(713 :704 :715 :-708 :701 :718 )\n'
+    #s+= '     (719 :-702 :721 :-704 :707 :724 )(705 :-708 :727 :702 :713 :730)\n'
+    #s+= '     (711 :-704 :733 :708 :719 :736 )(-703 :-709 :-715 :-721 :-727 :-733 ) $CR\n'
    #TODO FIX THIS s+= '    1     0       -30 -40 41             $ Water in core \n'
     #s+= '    2     0       -300          fill=1   $ Center FA\n'
     #s+= '    3     0       -301          fill=2   $ Top middle FA\n'
@@ -524,7 +525,7 @@ def write_main_cells():
 
 def write_core_water_cell(x_l, y_l):
     s = '-0.777537  '
-    cnt = 2
+    '''cnt = 2
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
 
@@ -541,7 +542,8 @@ def write_core_water_cell(x_l, y_l):
                 s += '\n             '
                 cnt = 0
             s += str(ID) + ' '
-
+    '''
+    s += ' 9:10:11:12:13:14:15'
     s_prime = 'c**********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c**********************************************************************\n'
@@ -562,7 +564,7 @@ def form_string():
     s += write_main_cells()
     s += write_fuel_universes(x_l, y_l)
     s += 'c\n'
-#TODO REIMPLIMENT    s += write_core_water_cell(x_l, y_l)
+    s += write_core_water_cell(x_l, y_l)
     s += fill_rod_position()
     s += '\n'
     s += write_rod_surfaces(x_l, y_l)
