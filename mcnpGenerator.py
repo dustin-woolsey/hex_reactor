@@ -524,9 +524,14 @@ def write_main_cells():
     return s
 
 def write_core_water_cell(x_l, y_l):
-    s = '-0.777537  '
-    '''cnt = 2
+    cnt = 2
+
+    s_fin = ''
     for index, x_i in enumerate(x_l):
+        s_p = 'c**********************************************************************\n'
+        s_p += 'c Water around assembly #'+ str(index + 1) + '\n'
+        s_p += 'c**********************************************************************\n'
+        s = '-0.777537  '
         y_i = y_l[index]
 
         for i, x_it in enumerate(x_i):
@@ -542,14 +547,22 @@ def write_core_water_cell(x_l, y_l):
                 s += '\n             '
                 cnt = 0
             s += str(ID) + ' '
-    '''
+
+        s_p = str(s_p) + '  66' + str(index) +'     3   '+ str(s) + ' u=' + str(int(index) + 1) + '\n'
+
+        s_fin += s_p
+
+
+
+    s = '-0.777537  '
     s += ' #(9:10:11:12:13:14:15)'
     s_prime = 'c**********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c**********************************************************************\n'
-    s_prime += '  666     3   '+ s + ' u=8 \n'
+    s_prime += '  668     3   '+ s + ' u=8 \n'
 
-    return s_prime
+    s_fin += s_prime
+    return s_fin
 
 def write_file(outputName, s):
 
