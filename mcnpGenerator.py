@@ -560,7 +560,7 @@ def form_string():
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
     s += 'c\n'
-#TODO REIMPLIMENT    s += write_main_cells()
+    s += write_main_cells()
     s += write_fuel_universes(x_l, y_l)
     s += 'c\n'
 #TODO REIMPLIMENT    s += write_core_water_cell(x_l, y_l)
