@@ -17,9 +17,11 @@ c ***************************************************************************
 c *Cell being filled
 c ***************************************************************************
  1001     0         -10001 -40 41  fill=100 (  0.000000   0.000000  0.00)   $
+ 1002     2         -10002 10001 -41 42 imp:n=0  (  0.000000   0.000000  0.00)
 c ===========================================================================
 
- 10001       c/z     0.000000     0.000000   0.4572
+ 10001       c/z     0.000000     0.000000   5.0
+ 10002       c/z     0.000000     0.000000   10.0
 c ===========================================================================
 c Cylinders **From VVER Fuel Specs PPT**
   20    cz 0.38              $ Fuel
@@ -34,6 +36,8 @@ c ===========================================================================
 c Planes for core boundaries
   40    pz     926.8                   $ Water top
   41    pz    -226.8                   $ Water bottom
+  40    pz     950.0                   $ GRAVE top
+  41    pz    -250.0                   $ GRAVE bottom
 c ===========================================================================
 c Planes **Elevations from VVER Fuel Specs PPT**
   100 pz  116.8              $ Fuel top
@@ -89,12 +93,16 @@ c Density: 0.777537g/cc ** From VVER 440.pdf**
 m3    1001.70c   -0.063116 $ H
       8016.70c   -0.80149  $ O
       5010.70c   -0.135394 $ B
-imp:n             0            1        11567r       $
+imp:n             1            1        11r       $
 c ***************************************************************************
 c Source cards
 c ***************************************************************************
 c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME
 sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3
 sp1 -3
-si2 0 0.75            $ radius of the active region
-si3 -125.7 116.8    $ height of the active region
+si2 0 1.50            $ radius of the active region
+si3 -126 117    $ height of the active region
+c ************************* TALLY SPECIFICATION ********************************
+c Flux average tally for active fuel region of all 85 elements
+f4:n  100100
+f7:n  100100
