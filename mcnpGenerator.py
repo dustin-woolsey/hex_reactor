@@ -33,8 +33,8 @@ def read_rod_pos():
                 x.append(x_p)
                 y.append(y_p)
 
-    plt.plot(x, y, 'bo')
-    plt.show()
+    #plt.plot(x, y, 'bo')
+    #plt.show()
 
     return x, y
 
@@ -64,8 +64,8 @@ def get_all_rod_pos():
     y_7 = [item - y_off for item in y_1]
 
     #TEST POSITIONS
-    plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
-    plt.show()
+    #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    #plt.show()
 
     print len(x_1)
     x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
@@ -96,8 +96,7 @@ def fill_rod_position():
             ID2 = assembly_ID * 1000 + rod_ID
 
             un = index + 1
-            fill = 100
-            s+= '  {}     0         -{}  fill={:<3d} ({: 10.6f} {: 10.6f} {: 4.2f})  u={} $\n'.format(ID2, ID, fill, x_it, y_it, 0, un)
+            s+= '  {}     0         -{}  -40  41  fill={:<3d} $\n'.format(ID2, ID, fill)
 
             fill += 1
 
@@ -110,24 +109,26 @@ def write_fuel_universes(x_l, y_l):
     s = 'c ******************************************************************************\n'
     s += 'c ** FUEL UNIVERSES: Individual FE"s\n'
     s += 'c ==============================================================================\n'
-    s += '  100100     1  -10.5     -100 101 -20            u=100 $ Meat\n'
-    s += '  100101     2  -6.55     -102 105 21 -22         u=100 $ Cladding\n'
-    s += '  100102     2  -0.000001 -100 101 20 -21         u=100 $ Gas Gap\n'
-    s += '  100103     2  -6.55      102 -103 -22           u=100 $ Top Cap\n'
-    s += '  100104     2  -6.55     -105 106 -22            u=100 $ Bottom Cap\n'
-    s += '  100105     2  -6.55      103 -104 -23           u=100 $ Top Plug\n'
-    s += '  100106     2  -6.55     -106 107 -24            u=100 $ Bottom Plug\n'
-    s += '  100107     3  -0.777537  104                    u=100 $ Water Above Plug\n'
-    s += '  100108     3  -0.777537 -104 103 23             u=100 $ Water RadiallyTop\n'
-    s += '  100109     3  -0.777537 -107                    u=100 $ Water Below pin\n'
-    s += '  100110     3  -0.777537  107 -106 24            u=100 $ Water RadiallyBottom\n'
-    s += '  100111     3  -0.777537 -102 105 22             u=100 $ Water Around pin\n'
+    s += '  100100     1  -10.5     -100 106 -20    imp:n=1 u=100 $ Meat\n'
+    s += '  100101     2  -6.55     -102 105 21 -22 imp:n=1 u=100 $ Cladding\n'
+    s += '  100102     2  -0.000001 -100 106 20 -21 imp:n=1 u=100 $ Gas Gap\n'
+    s += '  100103     2  -6.55      102 -103 -22 imp:n=1   u=100 $ Top Cap\n'
+    s += '  100104     2  -6.55     -105 106 -22  imp:n=1   u=100 $ Bottom Cap\n'
+    s += '  100105     2  -6.55      103 -104 -23 imp:n=1   u=100 $ Top Plug\n'
+    s += '  100106     2  -6.55     -106 107 -24  imp:n=1   u=100 $ Bottom Plug\n'
+    s += '  100107     3  -0.777537  104          imp:n=1   u=100 $ Water Above Plug\n'
+    s += '  100108     3  -0.777537 -104 103 23   imp:n=1   u=100 $ Water RadiallyTop\n'
+    s += '  100109     3  -0.777537 -107          imp:n=1   u=100 $ Water Below pin\n'
+    s += '  100110     3  -0.777537  107 -106 24  imp:n=1   u=100 $ Water RadiallyBottom\n'
+    s += '  100111     3  -0.777537 -102 105 22   imp:n=1   u=100 $ Water Around pin\n'
+    s += '  100112     3  -0.777537 -103 102 22   imp:n=1   u=100 $ Water upcap\n'
+    s += '  100113     2  -0.000001  100 -102 -21 imp:n=1   u=100 $ UpperGas Gap\n'
     s += 'c ******************************************************************************\n'
 
     u = 101
     ID = 100200
 
-    '''
+
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
 
@@ -147,13 +148,15 @@ def write_fuel_universes(x_l, y_l):
             s += '  {} like {} but u={}\n'.format(ID + 9, 100109, u)
             s += '  {} like {} but u={}\n'.format(ID + 10, 100110, u)
             s += '  {} like {} but u={}\n'.format(ID + 11, 100111, u)
+            s += '  {} like {} but u={}\n'.format(ID + 12, 100112, u)
+            s += '  {} like {} but u={}\n'.format(ID + 13, 100113, u)
 
             ID += 100
 
 
             u += 1
 
-    '''
+
 
     return s
 
@@ -181,7 +184,7 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
-    s += '  101 pz -125.7              $ Fuel bottom\n'
+    #s += '  101 pz -125.7              $ Fuel bottom\n'
     s += '  102 pz  125.75             $ Cladding top/Bottom of Top Cap\n'
     s += '  103 pz  126.25             $ Top of Top cap/Bottom of Top Plug\n'
     s += '  104 pz  126.8              $ Top of Top Plug\n'
@@ -196,67 +199,6 @@ def write_rod_surfaces(x_l, y_l):
     s += ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
         ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
     s += 'c ***************************************************************\n'
-    s += 'c Hexagonal SURFACES ALL FUEL ASSEMBLY DEFS\n'
-    s += 'c ***************************************************************\n'
-
-
-
-    s += 'c ==============================================================================\n'
-    s += 'c Cylinders for core boundaries \n'
-    s += '  305   cz 40                          $ Water boundary\n'
-    s += 'c ==============================================================================\n'
-    s += 'c Planes for core boundaries\n'
-    s += '  505   pz     926.8                   $ Water top\n'
-    s += '  515   pz    -226.8                   $ Water bottom\n'
-    s += 'c ==============================================================================\n'
-    s += 'c Planes fro hexagonal cells\n'
-    s += '  701         p -0.86602540378444 0 0.49999999999999 14.5 \n'
-    s += '  702         p -1.0713652187633e-014 0 1 -1.8467333635044e-014\n'
-    s += '  703         p 0.86602540378443 0 0.50000000000001 -7.25\n'
-    s += '  704         p 0.86602540378444 0 -0.49999999999999 9.7699626167014e-015\n'
-    s += '  705         p 1.1879386363489e-014 0 -1 14.5\n'
-    s += '  706         p -0.86602540378443 0 -0.50000000000001 21.75\n'
-    s += '  707         p -8.0491169285324e-015 0 1 14.5\n'
-    s += '  708         p 0.86602540378443 0 0.50000000000001 -1.8651746813703e-014\n'
-    s += '  709         p 0.86602540378444 0 -0.49999999999999 -7.25\n'
-    s += '  710         p 8.7707618945387e-015 0 -1 8.1704531989996e-015\n'
-    s += '  711         p -0.86602540378443 0 -0.50000000000001 14.5\n'
-    s += '  712         p -0.86602540378444 0 0.49999999999999 21.75\n'
-    s += '  713         p 0.86602540378444 0 0.5 14.5\n'
-    s += '  714         p 0.86602540378444 0 -0.5 -1.8651746813703e-014\n'
-    s += '  715         p -4.9731793613368e-016 0 -1 -7.25\n'
-    s += '  716         p -0.86602540378444 0 -0.5 7.105427357601e-015\n'
-    s += '  717         p -0.86602540378444 0 0.5 14.5\n'
-    s += '  718         p 0 0 1 21.75\n'
-    s += '  719         p 0.86602540378444 0 -0.5 14.5\n'
-    s += '  720         p 3.663735981263e-015 0 -1 -1.852483103461e-014\n'
-    s += '  721         p -0.86602540378444 0 -0.5 -7.25\n'
-    s += '  722         p -0.86602540378444 0 0.5 8.8817841970013e-015\n'
-    s += '  723         p -4.8294701571194e-015 0 1 14.5\n'
-    s += '  724         p 0.86602540378444 0 0.5 21.75\n'
-    s += '  725         p 1.0547118733939e-015 0 -1 14.5\n'
-    s += '  726         p -0.86602540378444 0 -0.5 -1.6875389974302e-014\n'
-    s += '  727         p -0.86602540378444 0 0.5 -7.25\n'
-    s += '  728         p -1.7763568394003e-015 0 1 8.9186554055332e-015\n'
-    s += '  729         p 0.86602540378444 0 0.5 14.5\n'
-    s += '  730         p 0.86602540378444 0 -0.5 21.75\n'
-    s += '  731         p -0.86602540378444 0 -0.5 14.5\n'
-    s += '  732         p -0.86602540378444 0 0.5 -1.8651746813703e-014\n'
-    s += '  733         p 4.9731793613368e-016 0 1 -7.25\n'
-    s += '  734         p 0.86602540378444 0 0.5 7.105427357601e-015\n'
-    s += '  735         p 0.86602540378444 0 -0.5 14.5\n'
-    s += '  736         p 0 0 -1 21.75\n'
-    s += '  737         p -0.86602540378444 0 -0.5 7.25\n'
-    s += '  738         p -0.86602540378444 0 0.5 7.25\n'
-    s += '  739         p 4.9731793613368e-016 0 1 7.25\n'
-    s += '  740         p 0.86602540378444 0 0.5 7.25\n'
-    s += '  741         p 0.86602540378444 0 -0.5 7.25\n'
-    s += '  742         p 0 0 -1 7.25\n'
-
-
-
-
-
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
@@ -490,49 +432,19 @@ def write_main_cells():
     s = 'c ***************************************************************\n'
     s += 'c Primary Cells\n'
     s += 'c ***************************************************************\n'
-    #s+= 'c Water around core\n'
-    #s+= '  1     0       -30 -50 51             $ Water in core\n'
-    #s+= '  2     0       -300                   $ Center FA\n'
-    #s+= '  3     0       -301                   $ Top middle FA\n'
-    #s+= '  4     0       -302                   $ Top left FA\n'
-    #s+= '  5     0       -303                   $ Top right FA\n'
-    #s+= '  6     0       -304                   $ Bot middle FA\n'
-    #s+= '  7     0       -305                   $ Bot left FA\n'
-    #s+= '  8     0       -306                   $ Bot right FA\n'
-    s+= 'c Planes for hexagonal cells\n'
-    s+= '  9      0 (-40 41 -701 -702 -703 -704 -705 -706 ) fill=7 $ bottom left\n'
-    s+= '  10     0 (-40 41 -707 -708 -709 702 -711 -712 ) fill=5 $ upper left\n'
-    s+= '  11     0 (-40 41 -713 -704 -715 708 -701 -718 ) fill=3 $ top mid\n'
-    s+= '  12     0 (-40 41 -719 702 -721 704 -707 -724 ) fill=4 $ top right\n'
-    s+= '  13     0 (-40 41 -705 708 -727 -702 -713 -730 ) fill=6 $ bottom right\n'
-    s+= '  14     0 (-40 41 -711 704 -733 -708 -719 -736 ) fill=2 $ bottom mid\n'
-    s+= '  15     0 (-40 41 703 709 715 721 727 733 ) fill=1 $ center\n'
-    s+= '  16     0  -40 41 -305 fill=8 $ water\n'
-    #s+= '  16     0 fill=8  (701 :702 :703 :704 :705 :706 )\n'
-    #s+= '     (707 :708 :709 :-702 :711 :712)(713 :704 :715 :-708 :701 :718 )\n'
-    #s+= '     (719 :-702 :721 :-704 :707 :724 )(705 :-708 :727 :702 :713 :730)\n'
-    #s+= '     (711 :-704 :733 :708 :719 :736 )(-703 :-709 :-715 :-721 :-727 :-733 ) $CR\n'
-   #TODO FIX THIS s+= '    1     0       -30 -40 41             $ Water in core \n'
-    #s+= '    2     0       -300          fill=1   $ Center FA\n'
-    #s+= '    3     0       -301          fill=2   $ Top middle FA\n'
-    #s+= '    4     0       -302          fill=3   $ Top left FA\n'
-    #s+= '    5     0       -303          fill=4   $ Top right FA\n'
-    #s+= '    6     0       -304          fill=5   $ Bot middle FA\n'
-    #s+= '    7     0       -305          fill=6   $ Bot left FA\n'
-    #s+= '    8     0       -306          fill=7   $ Bot right FA\n'
+    s+= '  2     -0.0001       -30 40 -41  imp:n=0           $ Graveyard\n'
+
 
 
     return s
 
 def write_core_water_cell(x_l, y_l):
-    cnt = 2
+    cnt = 5
 
-    s_fin = ''
+    s = ''
     for index, x_i in enumerate(x_l):
-        s_p = 'c**********************************************************************\n'
-        s_p += 'c Water around assembly #'+ str(index + 1) + '\n'
-        s_p += 'c**********************************************************************\n'
-        s = '-0.777537  '
+
+
         y_i = y_l[index]
 
         for i, x_it in enumerate(x_i):
@@ -549,21 +461,14 @@ def write_core_water_cell(x_l, y_l):
                 cnt = 0
             s += str(ID) + ' '
 
-        s_p = str(s_p) + '  66' + str(index) +'     3   '+ str(s) + ' u=' + str(int(index) + 1) + '\n'
-
-        s_fin += s_p
 
 
 
-    s = '-0.777537  '
-    s += ' #(9:10:11:12:13:14:15)'
     s_prime = 'c**********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c**********************************************************************\n'
-    s_prime += '  668     3   '+ s + ' u=8 \n'
-
-    s_fin += s_prime
-    return s_fin
+    s_prime += '  668     3   -0.777537   -30   -40   41   '+ s + 'imp:n=1\n'
+    return s_prime
 
 def write_file(outputName, s):
 
@@ -576,16 +481,18 @@ def form_string():
     s = write_intro_mat()
     s += 'c\n'
     s += write_main_cells()
+    s += fill_rod_position()
+    s += write_core_water_cell(x_l, y_l)
     s += write_fuel_universes(x_l, y_l)
     s += 'c\n'
-    s += write_core_water_cell(x_l, y_l)
-    s += fill_rod_position()
+
+
     s += '\n'
     s += write_rod_surfaces(x_l, y_l)
     s+= '\n'
     s += write_kcode_ect()
     s += write_materials()
-    s += write_imp()
+    #s += write_imp()
     s += write_sdef()
     s += write_tallys(x_l, y_l)
 
