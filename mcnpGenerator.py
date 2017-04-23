@@ -40,37 +40,40 @@ def read_rod_pos():
 
 
 def get_all_rod_pos():
-    x_1, y_1 = read_rod_pos()
 
-    x_2 = x_1
-    y_2 = [item - 14.7 for item in y_1]
 
-    x_3 = x_1
-    y_3 = [item + 14.7 for item in y_1]
+#    x_2 = x_1
+ #   y_2 = [item - 14.7 for item in y_1]
 
-    x_off = 12.7305
-    y_off = 14.7 / 2.0
+#    x_3 = x_1
+ #   y_3 = [item + 14.7 for item in y_1]
 
-    x_4 = [item + x_off for item in x_1]
-    y_4 = [item + y_off for item in y_1]
+  #  x_off = 12.7305
+   # y_off = 14.7 / 2.0
 
-    x_5 = [item - x_off for item in x_1]
-    y_5 = [item + y_off for item in y_1]
+#    x_4 = [item + x_off for item in x_1]
+ #   y_4 = [item + y_off for item in y_1]
 
-    x_6 = [item + x_off for item in x_1]
-    y_6 = [item - y_off for item in y_1]
+#    x_5 = [item - x_off for item in x_1]
+#    y_5 = [item + y_off for item in y_1]
 
-    x_7 = [item - x_off for item in x_1]
-    y_7 = [item - y_off for item in y_1]
+#    x_6 = [item + x_off for item in x_1]
+#    y_6 = [item - y_off for item in y_1]
+
+#    x_7 = [item - x_off for item in x_1]
+#    y_7 = [item - y_off for item in y_1]
 
     #TEST POSITIONS
     #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
     #plt.show()
 
-    print len(x_1)
-    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
-    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
+#    print len(x_1)
+#    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
+#    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
+    x_1, y_1 = read_rod_pos()
+    x_list=[x_1]
+    y_list=[y_1]
     return  x_list , y_list
 
 
@@ -96,7 +99,7 @@ def fill_rod_position():
             ID2 = assembly_ID * 1000 + rod_ID
 
             un = index + 1
-            s+= '  {}     0         -{}  -40  41  fill={:<3d} $\n'.format(ID2, ID, fill)
+            s+= '  {}     0         -{}  -40  41 imp:n=1 fill={:<3d} $\n'.format(ID2, ID, fill)
 
             fill += 1
 
@@ -111,7 +114,7 @@ def write_fuel_universes(x_l, y_l):
     s += 'c ==============================================================================\n'
     s += '  100100     1  -10.5     -100 106 -20    imp:n=1 u=100 $ Meat\n'
     s += '  100101     2  -6.55     -102 105 21 -22 imp:n=1 u=100 $ Cladding\n'
-    s += '  100102     2  -0.000001 -100 106 20 -21 imp:n=1 u=100 $ Gas Gap\n'
+    s += '  100102     2  -0.001    -100 105 20 -21 imp:n=1 u=100 $ Gas Gap\n'
     s += '  100103     2  -6.55      102 -103 -22 imp:n=1   u=100 $ Top Cap\n'
     s += '  100104     2  -6.55     -105 106 -22  imp:n=1   u=100 $ Bottom Cap\n'
     s += '  100105     2  -6.55      103 -104 -23 imp:n=1   u=100 $ Top Plug\n'
@@ -123,6 +126,7 @@ def write_fuel_universes(x_l, y_l):
     s += '  100111     3  -0.777537 -102 105 22   imp:n=1   u=100 $ Water Around pin\n'
     s += '  100112     3  -0.777537 -103 102 22   imp:n=1   u=100 $ Water upcap\n'
     s += '  100113     2  -0.000001  100 -102 -21 imp:n=1   u=100 $ UpperGas Gap\n'
+    s += '  100114     3  -0.777537 -105 106 22   imp:n=1 u=100 $ WaterRadial 100110\n'
     s += 'c ******************************************************************************\n'
 
     u = 101
@@ -184,7 +188,7 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
-    #s += '  101 pz -125.7              $ Fuel bottom\n'
+    s += '  101 pz -125.7              $ Fuel bottom\n'
     s += '  102 pz  125.75             $ Cladding top/Bottom of Top Cap\n'
     s += '  103 pz  126.25             $ Top of Top cap/Bottom of Top Plug\n'
     s += '  104 pz  126.8              $ Top of Top Plug\n'
@@ -403,8 +407,8 @@ def write_sdef():
     s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
     s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
     s+= 'sp1 -3\n'
-    s+= 'si2 0 15            $ radius of the active region\n'
-    s+= 'si3 -125.7 116.8    $ height of the active region\n'
+    s+= 'si2 0 20            $ radius of the active region\n'
+    s+= 'si3 -126 117    $ height of the active region\n'
 
     return s
 
