@@ -409,7 +409,7 @@ def write_sdef():
     s+= 'c Source cards \n'
     s+= 'c ******************************************************************************\n'
     s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
-    s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
+    s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3 CELL=668\n'
     s+= 'sp1 -3\n'
     s+= 'si2 0 20            $ radius of the active region\n'
     s+= 'si3 -126 117    $ height of the active region\n'
@@ -440,7 +440,8 @@ def write_main_cells():
     s = 'c ***************************************************************\n'
     s += 'c Primary Cells\n'
     s += 'c ***************************************************************\n'
-    s+= '  2     -0.0001      -31 -42 43 -30 40 -41  imp:n=0           $ Graveyard\n'
+    s += '  2      0      -31 -42 43 30 40 -41  imp:n=0           $ Graveyard\n'
+    s += '  3      0      31 : 42 : -43   imp:n=0           $ Graveyard\n'
 
 
 
@@ -472,9 +473,9 @@ def write_core_water_cell(x_l, y_l):
 
 
 
-    s_prime = 'c**********************************************************************\n'
+    s_prime = 'c **********************************************************************\n'
     s_prime += 'c Water around core\n'
-    s_prime += 'c**********************************************************************\n'
+    s_prime += 'c **********************************************************************\n'
     s_prime += '  668     3   -0.777537   -30   -40   41   '+ s + 'imp:n=1\n'
     return s_prime
 
