@@ -185,7 +185,7 @@ def write_rod_surfaces(x_l, y_l):
     s += '  40    pz     926.8                   $ Water top\n'
     s += '  41    pz    -226.8                   $ Water bottom\n'
     s += '  42    pz     1500                    $ Graveyard Top\n'
-    s += '  43    pz     -500                    $ Graveyard Top\n'
+    s += '  43    pz     -500                    $ Graveyard Bottom\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
@@ -197,13 +197,6 @@ def write_rod_surfaces(x_l, y_l):
     s += '  106 pz -125.7              $ Bottom of Bottom Cap/Top of Bottom Plug\n'
     s += '  107 pz -126.8              $ Bottom of Bottom Plug\n'
 
-
-    s += 'c ***************************************************************\n'
-    s += 'c ROD SURFACES\n'
-    s += 'c ***************************************************************\n'
-    s += ' 11000         pz 126.8     $  Top of Fuel Rod\n' \
-        ' 22000         pz -126.8    $  Bottom of Fuel Rod\n'
-    s += 'c ***************************************************************\n'
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]

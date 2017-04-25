@@ -15257,7 +15257,7 @@ c Planes for core boundaries
   40    pz     926.8                   $ Water top
   41    pz    -226.8                   $ Water bottom
   42    pz     1500                    $ Graveyard Top
-  43    pz     -500                    $ Graveyard Top
+  43    pz     -500                    $ Graveyard Bottom
 c ==============================================================================
 c Planes **Elevations from VVER Fuel Specs PPT**
   100 pz  116.8              $ Fuel top
@@ -15268,12 +15268,6 @@ c Planes **Elevations from VVER Fuel Specs PPT**
   105 pz -125.2              $ Cladding bottom/Top of Bottom Cap
   106 pz -125.7              $ Bottom of Bottom Cap/Top of Bottom Plug
   107 pz -126.8              $ Bottom of Bottom Plug
-c ***************************************************************
-c ROD SURFACES
-c ***************************************************************
- 11000         pz 126.8     $  Top of Fuel Rod
- 22000         pz -126.8    $  Bottom of Fuel Rod
-c ***************************************************************
  10001       c/z     0.000000     0.000000   0.4572
  10002       c/z    -3.825000     6.625094   0.4572
  10003       c/z    -4.462500     5.520912   0.4572
