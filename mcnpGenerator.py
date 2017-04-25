@@ -4,8 +4,6 @@ from numpy import sin, cos, linspace, array, pi
 import csv
 
 
-
-
 letter = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7}
 
 
@@ -41,39 +39,38 @@ def read_rod_pos():
 
 def get_all_rod_pos():
 
+    x_1, y_1 = read_rod_pos()
 
-#    x_2 = x_1
- #   y_2 = [item - 14.7 for item in y_1]
+    x_2 = x_1
+    y_2 = [item - 14.7 for item in y_1]
 
-#    x_3 = x_1
- #   y_3 = [item + 14.7 for item in y_1]
+    x_3 = x_1
+    y_3 = [item + 14.7 for item in y_1]
 
-  #  x_off = 12.7305
-   # y_off = 14.7 / 2.0
+    x_off = 12.7305
+    y_off = 14.7 / 2.0
 
-#    x_4 = [item + x_off for item in x_1]
- #   y_4 = [item + y_off for item in y_1]
+    x_4 = [item + x_off for item in x_1]
+    y_4 = [item + y_off for item in y_1]
 
-#    x_5 = [item - x_off for item in x_1]
-#    y_5 = [item + y_off for item in y_1]
+    x_5 = [item - x_off for item in x_1]
+    y_5 = [item + y_off for item in y_1]
 
-#    x_6 = [item + x_off for item in x_1]
-#    y_6 = [item - y_off for item in y_1]
+    x_6 = [item + x_off for item in x_1]
+    y_6 = [item - y_off for item in y_1]
 
-#    x_7 = [item - x_off for item in x_1]
-#    y_7 = [item - y_off for item in y_1]
+    x_7 = [item - x_off for item in x_1]
+    y_7 = [item - y_off for item in y_1]
 
     #TEST POSITIONS
     #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
     #plt.show()
 
 #    print len(x_1)
-#    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
-#    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
+    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
+    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
-    x_1, y_1 = read_rod_pos()
-    x_list=[x_1]
-    y_list=[y_1]
+
     return  x_list , y_list
 
 
@@ -397,7 +394,7 @@ def write_tallys(x_l, y_l):
 
 
     s_prime = 'c ************************* TALLY SPECIFICATION ********************************\n'
-    s_prime += 'c Flux average tally for active fuel region of all 85 elements\n'
+    s_prime += 'c Flux average tally for active fuel region of all elements\n'
     s_prime += 'f4:n  ' + s + '\n'
     s_prime += 'f7:n  ' + s
 
@@ -405,13 +402,14 @@ def write_tallys(x_l, y_l):
 
 
 def write_sdef():
+
     s= 'c ******************************************************************************\n'
     s+= 'c Source cards \n'
     s+= 'c ******************************************************************************\n'
     s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
     s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
     s+= 'sp1 -3\n'
-    s+= 'si2 0 20            $ radius of the active region\n'
+    s+= 'si2 0 21            $ radius of the active region\n'
     s+= 'si3 -126 117    $ height of the active region\n'
 
     return s
@@ -426,7 +424,7 @@ def write_imp():
 def write_kcode_ect():
     s = 'c ***************************************************************\n'
     s += 'mode  n\n'
-    s += 'kcode 100000 1.500000 30 250 300000\n'
+    s += 'kcode 10000 1.500000 30 250 300000\n'
     return s
 
 def write_intro_mat():

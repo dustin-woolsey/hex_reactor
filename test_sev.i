@@ -235,7 +235,7 @@ c ******************************************************************************
 c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME
 sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3
 sp1 -3
-si2 0 20            $ radius of the active region
+si2 0 1.5            $ radius of the active region
 si3 -126 117    $ height of the active region
 c ************************* TALLY SPECIFICATION ********************************
 c Flux average tally for active fuel region of all 85 elements
