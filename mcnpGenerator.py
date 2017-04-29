@@ -63,14 +63,15 @@ def get_all_rod_pos():
     y_7 = [item - y_off for item in y_1]
 
     #TEST POSITIONS
-    plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
-    plt.show()
+    #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    #plt.show()
 
 #    print len(x_1)
     x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
     y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
-
+    #x_list = [x_1]
+    #y_list = [y_1]
     return  x_list , y_list
 
 
@@ -96,7 +97,7 @@ def fill_rod_position():
             ID2 = assembly_ID * 1000 + rod_ID
 
             un = index + 1
-            s+= '  {}     0     -{} -40 41 fill={:<3d} ({:10.6f}{:10.6f} 0.0)imp:n=1 u=0\n'.format(ID2, ID, fill, x_it, y_it)
+            s+= '  {}     0     -{} fill={:<3d} ({:10.6f} {:10.6f} 0.0) imp:n=1 u=0\n'.format(ID2, ID, fill, x_it, y_it)
 
             fill += 1
 
@@ -505,4 +506,4 @@ def form_string():
 
 
 if __name__ == '__main__':
-    write_file(outputName = 'test.i', s =form_string())
+    write_file(outputName = 'full_test4.i', s =form_string())
