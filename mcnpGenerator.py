@@ -63,8 +63,8 @@ def get_all_rod_pos():
     y_7 = [item - y_off for item in y_1]
 
     #TEST POSITIONS
-    #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
-    #plt.show()
+    plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    plt.show()
 
 #    print len(x_1)
     x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
@@ -78,7 +78,7 @@ def get_all_rod_pos():
 def fill_rod_position():
     x_l, y_l = get_all_rod_pos()
 
-    fill = 101
+    fill = 100
     s = 'c ******************************************************************************\n'
     s += 'c ** Fuel Rod Position Filling\n'
     s += 'c ==============================================================================\n'
@@ -96,7 +96,7 @@ def fill_rod_position():
             ID2 = assembly_ID * 1000 + rod_ID
 
             un = index + 1
-            s+= '  {}     0         -{}  -40  41 imp:n=1 fill={:<3d} $\n'.format(ID2, ID, fill)
+            s+= '  {}     0     -{} -40 41 fill={:<3d} ({:10.6f}{:10.6f} 0.0)imp:n=1 u=0\n'.format(ID2, ID, fill, x_it, y_it)
 
             fill += 1
 
@@ -136,27 +136,31 @@ def write_fuel_universes(x_l, y_l):
         for ind, x_it in enumerate(x_i):
             y_it = y_i[ind]
 
-            s += 'c ==============================================================================\n'
-            s += '  {} like {} but u={}\n'.format(ID, 100100, u)
-            s += '  {} like {} but u={}\n'.format(ID + 1, 100101, u)
-            s += '  {} like {} but u={}\n'.format(ID + 2, 100102, u)
-            s += '  {} like {} but u={}\n'.format(ID + 3, 100103, u)
-            s += '  {} like {} but u={}\n'.format(ID + 4, 100104, u)
-            s += '  {} like {} but u={}\n'.format(ID + 5, 100105, u)
-            s += '  {} like {} but u={}\n'.format(ID + 6, 100106, u)
-            s += '  {} like {} but u={}\n'.format(ID + 7, 100107, u)
-            s += '  {} like {} but u={}\n'.format(ID + 8, 100108, u)
-            s += '  {} like {} but u={}\n'.format(ID + 9, 100109, u)
-            s += '  {} like {} but u={}\n'.format(ID + 10, 100110, u)
-            s += '  {} like {} but u={}\n'.format(ID + 11, 100111, u)
-            s += '  {} like {} but u={}\n'.format(ID + 12, 100112, u)
-            s += '  {} like {} but u={}\n'.format(ID + 13, 100113, u)
-            s += '  {} like {} but u={}\n'.format(ID + 14, 100114, u)
+            if index == 0 and ind == 0:
+                pass
+            else:
 
-            ID += 100
+                s += 'c ==============================================================================\n'
+                s += '  {} like {} but u={}\n'.format(ID, 100100, u)
+                s += '  {} like {} but u={}\n'.format(ID + 1, 100101, u)
+                s += '  {} like {} but u={}\n'.format(ID + 2, 100102, u)
+                s += '  {} like {} but u={}\n'.format(ID + 3, 100103, u)
+                s += '  {} like {} but u={}\n'.format(ID + 4, 100104, u)
+                s += '  {} like {} but u={}\n'.format(ID + 5, 100105, u)
+                s += '  {} like {} but u={}\n'.format(ID + 6, 100106, u)
+                s += '  {} like {} but u={}\n'.format(ID + 7, 100107, u)
+                s += '  {} like {} but u={}\n'.format(ID + 8, 100108, u)
+                s += '  {} like {} but u={}\n'.format(ID + 9, 100109, u)
+                s += '  {} like {} but u={}\n'.format(ID + 10, 100110, u)
+                s += '  {} like {} but u={}\n'.format(ID + 11, 100111, u)
+                s += '  {} like {} but u={}\n'.format(ID + 12, 100112, u)
+                s += '  {} like {} but u={}\n'.format(ID + 13, 100113, u)
+                s += '  {} like {} but u={}\n'.format(ID + 14, 100114, u)
+
+                ID += 100
 
 
-            u += 1
+                u += 1
 
 
 
@@ -196,7 +200,7 @@ def write_rod_surfaces(x_l, y_l):
     s += '  105 pz -125.2              $ Cladding bottom/Top of Bottom Cap\n'
     s += '  106 pz -125.7              $ Bottom of Bottom Cap/Top of Bottom Plug\n'
     s += '  107 pz -126.8              $ Bottom of Bottom Plug\n'
-
+    s = 'c ***************************************************************\n'
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
@@ -375,6 +379,7 @@ def write_tallys(x_l, y_l):
 
         for ind, x_it in enumerate(x_i):
             y_it = y_i[ind]
+
 
             if count == 8:
                 s += '&\n      '
