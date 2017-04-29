@@ -67,11 +67,11 @@ def get_all_rod_pos():
     #plt.show()
 
 #    print len(x_1)
-    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
-    y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
+    #x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
+    #y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
-    #x_list = [x_1]
-    #y_list = [y_1]
+    x_list = [x_1]
+    y_list = [y_1]
     return  x_list , y_list
 
 
@@ -201,7 +201,7 @@ def write_rod_surfaces(x_l, y_l):
     s += '  105 pz -125.2              $ Cladding bottom/Top of Bottom Cap\n'
     s += '  106 pz -125.7              $ Bottom of Bottom Cap/Top of Bottom Plug\n'
     s += '  107 pz -126.8              $ Bottom of Bottom Plug\n'
-    s = 'c ***************************************************************\n'
+    s += 'c ***************************************************************\n'
 
     for index, x_i in enumerate(x_l):
         y_i = y_l[index]
@@ -506,4 +506,4 @@ def form_string():
 
 
 if __name__ == '__main__':
-    write_file(outputName = 'full_test4.i', s =form_string())
+    write_file(outputName = 'assembly_test13.i', s =form_string())
