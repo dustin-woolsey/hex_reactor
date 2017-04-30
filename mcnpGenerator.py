@@ -62,16 +62,57 @@ def get_all_rod_pos():
     x_7 = [item - x_off for item in x_1]
     y_7 = [item - y_off for item in y_1]
 
+    x_8 = x_1
+    y_8 = [item -(2 * 14.7) for item in y_1]
+
+    x_9 = x_1
+    y_9 = [item + (2 *14.7) for item in y_1]
+
+    x_10 = [item + x_off for item in x_1]
+    y_10 = [item + y_off + 14.7 for item in y_1]
+
+    x_11 = [item - x_off for item in x_1]
+    y_11 = [item + y_off + 14.7 for item in y_1]
+
+    x_12 = [item + x_off for item in x_1]
+    y_12 = [item - y_off  - 14.7 for item in y_1]
+
+    x_13 = [item - x_off for item in x_1]
+    y_13 = [item - y_off  - 14.7 for item in y_1]
+
+    x_14 = [item + (2*x_off) for item in x_1]
+    y_14 = [item + (2 *y_off) for item in y_1]
+
+    x_15 = [item - (2*x_off) for item in x_1]
+    y_15 = [item + (2*y_off) for item in y_1]
+
+    x_16 = [item + (2*x_off) for item in x_1]
+    y_16 = [item + (2 *y_off) - 14.7 for item in y_1]
+
+    x_17 = [item - (2*x_off) for item in x_1]
+    y_17 = [item + (2*y_off) - 14.7 for item in y_1]
+
+    x_18 = [item + (2*x_off) for item in x_1]
+    y_18 = [item + (2 *y_off) - (2*14.7) for item in y_1]
+
+    x_19 = [item - (2*x_off) for item in x_1]
+    y_19 = [item + (2*y_off)  - (2*14.7) for item in y_1]
+
     #TEST POSITIONS
-    #plt.plot(x_1, y_1, 'bo', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
-    #plt.show()
+    plt.plot(x_1, y_1, 'ro', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    plt.plot(x_8, y_8, 'yo', x_9, y_9, 'yo' , x_10, y_10, 'yo', x_11, y_11, 'yo', x_12, y_12, 'yo', x_13, y_13, 'yo')
+    plt.plot( x_14, y_14, 'yo', x_15, y_15, 'yo', x_16, y_16, 'yo', x_17, y_17, 'yo', x_18, y_18, 'yo', x_19, y_19, 'yo')
+    plt.show()
 
 #    print len(x_1)
     #x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
     #y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
-    x_list = [x_1]
-    y_list = [y_1]
+    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7,x_8, x_9, x_10, x_11, x_12 ,x_13 ,x_14,x_15, x_16, x_17, x_18, x_19]
+    y_list = [y_1, y_2, y_3, y_4, y_5 ,y_6 ,y_7,y_8, y_9, y_10, y_11, y_12 ,y_13 ,y_14,y_15, y_16, y_17, y_18, y_19]
+
+    #x_list = [x_1]
+    #y_list = [y_1]
     return  x_list , y_list
 
 
@@ -93,8 +134,8 @@ def fill_rod_position():
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 10000 + rod_ID
-            ID2 = assembly_ID * 1000 + rod_ID
+            ID = assembly_ID * 1000 + rod_ID + 10000
+            ID2 = assembly_ID * 1000 + rod_ID + 400000
 
             un = index + 1
             s+= '  {}     0     -{} fill={:<3d} ({:10.6f} {:10.6f} 0.0) imp:n=1 u=0\n'.format(ID2, ID, fill, x_it, y_it)
@@ -212,7 +253,7 @@ def write_rod_surfaces(x_l, y_l):
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 10000 + rod_ID
+            ID = assembly_ID * 1000 + rod_ID + 10000
 
             s += ' {}       c/z   {: 10.6f}   {: 10.6f}   0.4572\n'.format(ID,x_it, y_it )
 
@@ -458,7 +499,7 @@ def write_core_water_cell(x_l, y_l):
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 10000 + rod_ID
+            ID = assembly_ID * 1000 + rod_ID + 10000
             cnt += 1
 
             if cnt == 10:
@@ -506,4 +547,4 @@ def form_string():
 
 
 if __name__ == '__main__':
-    write_file(outputName = 'assembly_test13.i', s =form_string())
+    write_file(outputName = 'large_test1.i', s =form_string())
