@@ -496,7 +496,7 @@ def write_sdef():
     s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
     s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
     s+= 'sp1 -3\n'
-    s+= 'si2 0 21            $ radius of the active region\n'
+    s+= 'si2 0 56.5            $ radius of the active region\n'
     s+= 'si3 -126 117    $ height of the active region\n'
 
     return s
