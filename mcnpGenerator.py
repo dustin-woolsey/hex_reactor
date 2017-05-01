@@ -1,17 +1,10 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from numpy import sin, cos, linspace, array, pi
 import csv
 
-
-letter = {'A':1, 'B':2, 'C':3, 'D':4, 'E':5, 'F':6, 'G':7}
-
-
 def read_rod_pos():
     x = []
     y = []
-
-
 
     with open('hex_from_sat_4.txt', 'rb') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=' ')
@@ -25,8 +18,6 @@ def read_rod_pos():
 
                 if abs(y_p) <= 1E-10:
                     y_p = 0
-
-
 
                 x.append(x_p)
                 y.append(y_p)
@@ -98,23 +89,91 @@ def get_all_rod_pos():
     x_19 = [item - (2*x_off) for item in x_1]
     y_19 = [item + (2*y_off)  - (2*14.7) for item in y_1]
 
+    x_20 = x_1
+    y_20 = [item + (3 *14.7) for item in y_1]
+
+    x_21 = [item + x_off for item in x_1]
+    y_21 = [item + y_off + (2 * 14.7) for item in y_1]
+
+    x_22 = [item - x_off for item in x_1]
+    y_22 = [item + y_off + (2 * 14.7) for item in y_1]
+
+    x_23 = [item + x_off for item in x_1]
+    y_23 = [item - y_off  - (2 *14.7) for item in y_1]
+
+    x_24 = [item - x_off for item in x_1]
+    y_24 = [item - y_off  - (2*14.7) for item in y_1]
+
+    x_25 = [item + (2*x_off) for item in x_1]
+    y_25 = [item + (2 *y_off)+14.7 for item in y_1]
+
+    x_26 = [item - (2*x_off) for item in x_1]
+    y_26 = [item + (2*y_off)+14.7 for item in y_1]
+
+    x_27 = [item + (3*x_off) for item in x_1]
+    y_27 = [item + (3 *y_off) for item in y_1]
+
+    x_28 = [item - (3*x_off) for item in x_1]
+    y_28 = [item + (3*y_off) for item in y_1]
+
+    x_29 = [item + (3*x_off) for item in x_1]
+    y_29 = [item + (3 *y_off)-14.7 for item in y_1]
+
+    x_30 = [item - (3*x_off) for item in x_1]
+    y_30 = [item + (3*y_off)-14.7 for item in y_1]
+
+    x_31 = [item + (3*x_off) for item in x_1]
+    y_31 = [item + (3 *y_off)-(2*14.7) for item in y_1]
+
+    x_32 = [item - (3*x_off) for item in x_1]
+    y_32 = [item + (3*y_off)-(2*14.7) for item in y_1]
+
+    x_33 = [item + (3*x_off) for item in x_1]
+    y_33 = [item + (3 *y_off)-(3*14.7) for item in y_1]
+
+    x_34 = [item - (3*x_off) for item in x_1]
+    y_34 = [item + (3*y_off)-(3*14.7) for item in y_1]
+
+    x_35 = [item + (2*x_off) for item in x_1]
+    y_35 = [item + (2 *y_off) - (3*14.7) for item in y_1]
+
+    x_36 = [item - (2*x_off) for item in x_1]
+    y_36 = [item + (2*y_off)  - (3*14.7) for item in y_1]
+
+    x_37 = x_1
+    y_37 = [item -(3 * 14.7) for item in y_1]
+
+
+    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7,x_8, x_9, x_10, x_11, x_12 ,x_13 ,x_14,x_15, x_16, x_17, x_18, x_19,
+              x_20, x_21, x_22, x_23, x_24, x_25, x_26, x_27, x_28, x_29, x_30, x_31, x_32, x_33, x_34, x_35, x_36, x_37]
+    y_list = [y_1, y_2, y_3, y_4, y_5 ,y_6 ,y_7,y_8, y_9, y_10, y_11, y_12 ,y_13 ,y_14,y_15, y_16, y_17, y_18, y_19,
+              y_20, y_21, y_22, y_23, y_24, y_25, y_26, y_27, y_28, y_29, y_30, y_31, y_32, y_33, y_34, y_35, y_36, y_37]
+
+
+
     #TEST POSITIONS
     plt.plot(x_1, y_1, 'ro', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
     plt.plot(x_8, y_8, 'yo', x_9, y_9, 'yo' , x_10, y_10, 'yo', x_11, y_11, 'yo', x_12, y_12, 'yo', x_13, y_13, 'yo')
     plt.plot( x_14, y_14, 'yo', x_15, y_15, 'yo', x_16, y_16, 'yo', x_17, y_17, 'yo', x_18, y_18, 'yo', x_19, y_19, 'yo')
+    plt.plot( x_20, y_20, 'go', x_21, y_21, 'go', x_22, y_22, 'go',  x_23, y_23, 'go', x_24, y_24, 'go', x_25, y_25, 'go')
+    plt.plot( x_26, y_26, 'go', x_27, y_27, 'go', x_28, y_28, 'go',  x_29, y_29, 'go', x_30, y_30, 'go', x_31, y_31, 'go')
+    plt.plot( x_32, y_32, 'go', x_33, y_33, 'go', x_34, y_34, 'go',  x_35, y_35, 'go', x_36, y_36, 'go', x_37, y_37, 'go')
+
+    for index, x_item in enumerate(x_list):
+        y_item = y_list[index]
+        plt.text(x_item[0]-0.5, y_item[0]-0.5, str(index + 1), fontsize=20)
     plt.show()
 
 #    print len(x_1)
     #x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
     #y_list = [y_1, y_2, y_3, y_4, y_5, y_6, y_7]
 
-    x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7,x_8, x_9, x_10, x_11, x_12 ,x_13 ,x_14,x_15, x_16, x_17, x_18, x_19]
-    y_list = [y_1, y_2, y_3, y_4, y_5 ,y_6 ,y_7,y_8, y_9, y_10, y_11, y_12 ,y_13 ,y_14,y_15, y_16, y_17, y_18, y_19]
+    #x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7,x_8, x_9, x_10, x_11, x_12 ,x_13 ,x_14,x_15, x_16, x_17, x_18, x_19]
+    #y_list = [y_1, y_2, y_3, y_4, y_5 ,y_6 ,y_7,y_8, y_9, y_10, y_11, y_12 ,y_13 ,y_14,y_15, y_16, y_17, y_18, y_19]
 
     #x_list = [x_1]
     #y_list = [y_1]
     return  x_list , y_list
-
 
 
 def fill_rod_position():
@@ -135,7 +194,7 @@ def fill_rod_position():
             rod_ID = i + 1
 
             ID = assembly_ID * 1000 + rod_ID + 10000
-            ID2 = assembly_ID * 1000 + rod_ID + 400000
+            ID2 = assembly_ID * 1000 + rod_ID + 900000
 
             un = index + 1
             s+= '  {}     0     -{} fill={:<3d} ({:10.6f} {:10.6f} 0.0) imp:n=1 u=0\n'.format(ID2, ID, fill, x_it, y_it)
@@ -143,8 +202,6 @@ def fill_rod_position():
             fill += 1
 
     return s
-
-
 
 
 def write_fuel_universes(x_l, y_l):
@@ -204,8 +261,6 @@ def write_fuel_universes(x_l, y_l):
 
                 u += 1
 
-
-
     return s
 
 def write_rod_surfaces(x_l, y_l):
@@ -261,7 +316,6 @@ def write_rod_surfaces(x_l, y_l):
 
 def get_assembly_rod_pos(n_rings, fuel_pitch):
     '''
-
     :param n_rings:  number of rings
     :param fuel_pitch: center to center distance of individual fuel elements
     :return: central rod positions
@@ -366,13 +420,6 @@ def get_assembly_rod_pos(n_rings, fuel_pitch):
                 for item in range(n):
                     pass               #TODO USE 60-90-30 triangle to find x  and y shift from x max  and y max for angled sides
                                        # Top and bottom will have constant y value
-
-
-
-
-
-
-
 
     centers = []
 
@@ -480,8 +527,6 @@ def write_main_cells():
     s += 'c ***************************************************************\n'
     s += '  2      0      30 : 40  :-41  imp:n=0           $ Graveyard\n'
 
-
-
     return s
 
 def write_core_water_cell(x_l, y_l):
@@ -508,12 +553,11 @@ def write_core_water_cell(x_l, y_l):
             s += str(ID) + ' '
 
 
-
-
     s_prime = 'c **********************************************************************\n'
     s_prime += 'c Water around core\n'
     s_prime += 'c **********************************************************************\n'
     s_prime += '  668     3   -0.777537   -30   -40   41   '+ s + 'imp:n=1\n'
+
     return s_prime
 
 def write_file(outputName, s):
@@ -544,7 +588,5 @@ def form_string():
 
     return s
 
-
-
 if __name__ == '__main__':
-    write_file(outputName = 'large_test1.i', s =form_string())
+    write_file(outputName = 'test.i', s =form_string())
