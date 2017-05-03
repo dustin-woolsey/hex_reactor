@@ -80385,14 +80385,11 @@ c Cylinders **From VVER Fuel Specs PPT**
   24    cz 0.25              $ Bottom Plug
 c ==============================================================================
 c Cylinders for core boundaries 
-  30    cz 40                          $ Water boundary
-  31    cz 100                          $ Water boundary
+  30    cz 115                          $ Water boundary
 c ==============================================================================
 c Planes for core boundaries
   40    pz     926.8                   $ Water top
   41    pz    -226.8                   $ Water bottom
-  42    pz     1500                    $ Graveyard Top
-  43    pz     -500                    $ Graveyard Bottom
 c ==============================================================================
 c Planes **Elevations from VVER Fuel Specs PPT**
   100 pz  116.8              $ Fuel top

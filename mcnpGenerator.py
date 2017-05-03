@@ -2,6 +2,89 @@ import matplotlib.pyplot as plt
 from numpy import sin, cos, linspace, array, pi
 import csv
 
+
+def gen_initial_rod_pos(pin_pitch, el_rings):
+
+    x_li = [0.0]
+    y_li = [0.0]
+    pp = pin_pitch
+    nr = el_rings
+
+    x_off = cos((pi / 180) * 60) * pp
+    y_off =  sin((pi / 180) * 60) * pp
+
+    for ring in range(nr- 1):
+
+        #Generate horizontal components
+        x_li.append(pp * (ring + 1))
+        y_li.append(0.0)
+
+        x_li.append(-pp * (ring + 1))
+        y_li.append(0.0)
+
+        #Generate upper and lower right elements
+        x_li.append(x_off * (ring + 1))
+        y_li.append(y_off * (ring + 1))
+
+        x_li.append(x_off * (ring + 1))
+        y_li.append(-y_off * (ring + 1))
+
+        for el in range(ring + 1):
+            x_li.append(x_off * (ring + 1) - (pp * (el + 1)))
+            y_li.append(y_off * (ring + 1))
+
+            x_li.append(x_off * (ring + 1) - (pp * (el + 1)))
+            y_li.append(-y_off * (ring + 1))
+
+
+        for r in range(6 - ring):
+            x_li.append((pp * (ring + 1))+ (x_off * (r)))
+            y_li.append(0.0 + (y_off * r))
+
+            x_li.append((pp * (ring + 1))+ (x_off * r))
+            y_li.append(0.0 - (y_off * r))
+
+            x_li.append((-pp * (ring + 1))- (x_off * r))
+            y_li.append(0.0 + (y_off * r))
+
+            x_li.append((-pp * (ring + 1))- (x_off * r))
+            y_li.append(0.0 - (y_off * r))
+
+
+
+    def clean_list():
+
+        coords = []
+        coords_clean = []
+        x_list = []
+        y_list = []
+
+        for index, item in enumerate(x_li):
+            coords.append((item, y_li[index]))
+
+
+        for it in coords:
+            if it in coords_clean:
+                pass
+            else:
+                coords_clean.append(it)
+
+
+        for i in coords_clean:
+            x_list.append(i[0])
+            y_list.append(i[1])
+
+        return x_list, y_list
+
+
+    x_l, y_l = clean_list()
+    print len(x_l)
+
+    plt.plot(x_l, y_l, 'bo')
+    plt.show()
+
+
+
 def read_rod_pos():
     x = []
     y = []
@@ -152,6 +235,7 @@ def get_all_rod_pos():
 
 
     #TEST POSITIONS
+
     plt.plot(x_1, y_1, 'ro', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
     plt.plot(x_8, y_8, 'yo', x_9, y_9, 'yo' , x_10, y_10, 'yo', x_11, y_11, 'yo', x_12, y_12, 'yo', x_13, y_13, 'yo')
     plt.plot( x_14, y_14, 'yo', x_15, y_15, 'yo', x_16, y_16, 'yo', x_17, y_17, 'yo', x_18, y_18, 'yo', x_19, y_19, 'yo')
@@ -159,6 +243,8 @@ def get_all_rod_pos():
     plt.plot( x_26, y_26, 'go', x_27, y_27, 'go', x_28, y_28, 'go',  x_29, y_29, 'go', x_30, y_30, 'go', x_31, y_31, 'go')
     plt.plot( x_32, y_32, 'go', x_33, y_33, 'go', x_34, y_34, 'go',  x_35, y_35, 'go', x_36, y_36, 'go', x_37, y_37, 'go')
 
+
+    plt.plot(x_1, y_1, 'bo')
     for index, x_item in enumerate(x_list):
         y_item = y_list[index]
         plt.text(x_item[0]-0.5, y_item[0]-0.5, str(index + 1), fontsize=20)
@@ -279,14 +365,11 @@ def write_rod_surfaces(x_l, y_l):
     s += '  24    cz 0.25              $ Bottom Plug\n'
     s += 'c ==============================================================================\n'
     s += 'c Cylinders for core boundaries \n'
-    s += '  30    cz 40                          $ Water boundary\n'
-    s += '  31    cz 100                          $ Water boundary\n'
+    s += '  30    cz 115                          $ Water boundary\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes for core boundaries\n'
     s += '  40    pz     926.8                   $ Water top\n'
     s += '  41    pz    -226.8                   $ Water bottom\n'
-    s += '  42    pz     1500                    $ Graveyard Top\n'
-    s += '  43    pz     -500                    $ Graveyard Bottom\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
@@ -567,6 +650,9 @@ def write_file(outputName, s):
 
 
 def form_string():
+
+    gen_initial_rod_pos(2, 7)
+    exit()
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
     s += 'c\n'
