@@ -4,9 +4,22 @@ import csv
 
 
 def gen_full_core(pin_pitch, el_rings, core_rings, assembly_pitch = None):
+
     pp = pin_pitch
-    er = el_rings
-    cr = core_rings
+
+    if el_rings <= 20:
+        er = el_rings
+
+    else:
+        print 'Assembly rings too high. Set to 20 by default'
+        er = 20
+
+    if core_rings <= 20:
+        cr = core_rings
+
+    else:
+        print 'Core rings too high. Set to 20 by default'
+        cr = 20
 
 
     if assembly_pitch:
@@ -84,11 +97,11 @@ def gen_full_core(pin_pitch, el_rings, core_rings, assembly_pitch = None):
 
 
 
-    print len(x_list)
-    for ind, it in enumerate(x_list):
-        plt.plot(it, y_list[ind], 'o')
+    #print len(x_list)
+    #for ind, it in enumerate(x_list):
+    #    plt.plot(it, y_list[ind], 'o')
 
-    plt.show()
+    #plt.show()
     return x_list, y_list
 
 
@@ -326,19 +339,19 @@ def get_all_rod_pos():
 
     #TEST POSITIONS
 
-    plt.plot(x_1, y_1, 'ro', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
-    plt.plot(x_8, y_8, 'yo', x_9, y_9, 'yo' , x_10, y_10, 'yo', x_11, y_11, 'yo', x_12, y_12, 'yo', x_13, y_13, 'yo')
-    plt.plot( x_14, y_14, 'yo', x_15, y_15, 'yo', x_16, y_16, 'yo', x_17, y_17, 'yo', x_18, y_18, 'yo', x_19, y_19, 'yo')
-    plt.plot( x_20, y_20, 'go', x_21, y_21, 'go', x_22, y_22, 'go',  x_23, y_23, 'go', x_24, y_24, 'go', x_25, y_25, 'go')
-    plt.plot( x_26, y_26, 'go', x_27, y_27, 'go', x_28, y_28, 'go',  x_29, y_29, 'go', x_30, y_30, 'go', x_31, y_31, 'go')
-    plt.plot( x_32, y_32, 'go', x_33, y_33, 'go', x_34, y_34, 'go',  x_35, y_35, 'go', x_36, y_36, 'go', x_37, y_37, 'go')
+    #plt.plot(x_1, y_1, 'ro', x_2, y_2, 'bo' , x_3, y_3, 'bo', x_4, y_4, 'bo', x_5, y_5, 'bo', x_6, y_6, 'bo', x_7, y_7, 'bo')
+    #plt.plot(x_8, y_8, 'yo', x_9, y_9, 'yo' , x_10, y_10, 'yo', x_11, y_11, 'yo', x_12, y_12, 'yo', x_13, y_13, 'yo')
+    #plt.plot( x_14, y_14, 'yo', x_15, y_15, 'yo', x_16, y_16, 'yo', x_17, y_17, 'yo', x_18, y_18, 'yo', x_19, y_19, 'yo')
+    #plt.plot( x_20, y_20, 'go', x_21, y_21, 'go', x_22, y_22, 'go',  x_23, y_23, 'go', x_24, y_24, 'go', x_25, y_25, 'go')
+    #plt.plot( x_26, y_26, 'go', x_27, y_27, 'go', x_28, y_28, 'go',  x_29, y_29, 'go', x_30, y_30, 'go', x_31, y_31, 'go')
+    #plt.plot( x_32, y_32, 'go', x_33, y_33, 'go', x_34, y_34, 'go',  x_35, y_35, 'go', x_36, y_36, 'go', x_37, y_37, 'go')
 
 
-    plt.plot(x_1, y_1, 'bo')
-    for index, x_item in enumerate(x_list):
-        y_item = y_list[index]
-        plt.text(x_item[0]-0.5, y_item[0]-0.5, str(index + 1), fontsize=20)
-    plt.show()
+    #plt.plot(x_1, y_1, 'bo')
+    #for index, x_item in enumerate(x_list):
+    #    y_item = y_list[index]
+    #    plt.text(x_item[0]-0.5, y_item[0]-0.5, str(index + 1), fontsize=20)
+    #plt.show()
 
 #    print len(x_1)
     #x_list = [x_1, x_2, x_3, x_4, x_5 ,x_6 ,x_7]
@@ -352,8 +365,7 @@ def get_all_rod_pos():
     return  x_list , y_list
 
 
-def fill_rod_position():
-    x_l, y_l = get_all_rod_pos()
+def fill_rod_position(x_l, y_l):
 
     fill = 100
     s = 'c ******************************************************************************\n'
@@ -439,7 +451,7 @@ def write_fuel_universes(x_l, y_l):
 
     return s
 
-def write_rod_surfaces(x_l, y_l):
+def write_rod_surfaces(x_l, y_l, core_size):
 
     s = 'c ***************************************************************\n'
     s += 'c ELEMENT SURFACES\n'
@@ -456,10 +468,13 @@ def write_rod_surfaces(x_l, y_l):
     s += 'c ==============================================================================\n'
     s += 'c Cylinders for core boundaries \n'
     s += '  30    cz 115                          $ Water boundary\n'
+    s += '  31    cz {: 10.2f}                           $ Reflector inner boundary\n'.format(core_size + 2.5)
     s += 'c ==============================================================================\n'
     s += 'c Planes for core boundaries\n'
     s += '  40    pz     926.8                   $ Water top\n'
     s += '  41    pz    -226.8                   $ Water bottom\n'
+    s += '  42    pz     150                     $ Reflector top\n'
+    s += '  43    pz    -150                     $ Reflector bottom\n'
     s += 'c ==============================================================================\n'
     s += 'c Planes **Elevations from VVER Fuel Specs PPT**\n'
     s += '  100 pz  116.8              $ Fuel top\n'
@@ -627,6 +642,19 @@ def write_materials():
     s += 'm3    1001.70c   -0.063116 $ H\n'
     s += '      8016.70c   -0.80149  $ O\n'
     s += '      5010.70c   -0.135394 $ B\n'
+    s += 'c ===============================================================	\n'
+    s += 'c Graphite rho = 1.6   g/cm^3\n'
+    s += 'c S(a,b)- Carbon @ 300K  \n'
+    s += 'c m4    6000.70c   -1       $ C\n'
+    s += 'c Beryllium rho= 1.848 g/cc\n'
+    s += 'm4      4007.80c   -1       $Be\n'
+
+
+
+
+
+
+
 
     return s
 
@@ -661,7 +689,7 @@ def write_tallys(x_l, y_l):
     return s_prime
 
 
-def write_sdef():
+def write_sdef(radius):
 
     s= 'c ******************************************************************************\n'
     s+= 'c Source cards \n'
@@ -669,7 +697,7 @@ def write_sdef():
     s+= 'c SOURCE DISTRIBUTED ACROSS THE CORE VOLUME\n'
     s+= 'sdef ERG=D1 POS=0 0 0 AXS=0 0 1 RAD=D2 EXT=D3\n'
     s+= 'sp1 -3\n'
-    s+= 'si2 0 56.5            $ radius of the active region\n'
+    s+= 'si2 0 {:10.6f}            $ radius of the active region\n'.format(radius)
     s+= 'si3 -126 117    $ height of the active region\n'
 
     return s
@@ -699,6 +727,7 @@ def write_main_cells():
     s += 'c Primary Cells\n'
     s += 'c ***************************************************************\n'
     s += '  2      0      30 : 40  :-41  imp:n=0           $ Graveyard\n'
+    s += '  3      4     -30 31  -42 43  imp:n=1           $ Reflector \n'
 
     return s
 
@@ -741,40 +770,65 @@ def write_file(outputName, s):
 
 def form_string(pin_pitch, assembly_rings, core_rings):
 
-    gen_full_core(pin_pitch, assembly_rings, core_rings, assembly_pitch = None)
+    x_l, y_l = gen_full_core(pin_pitch, assembly_rings, core_rings, assembly_pitch = None)
 
 
-    core_size = (pin_pitch * (assembly_rings)) * sin(60 * (pi / 180)) * (core_rings - .5) * 2
+    core_size = ((pin_pitch * (assembly_rings)) * sin(60 * (pi / 180)) * (core_rings - .5) * 2) + 2.5
 
-    core_size
 
-    exit()
-    x_l, y_l = get_all_rod_pos()
+
     s = write_intro_mat()
     s += 'c\n'
     s += write_main_cells()
-    s += fill_rod_position()
+    s += fill_rod_position(x_l, y_l)
     s += write_core_water_cell(x_l, y_l)
     s += write_fuel_universes(x_l, y_l)
     s += 'c\n'
 
 
     s += '\n'
-    s += write_rod_surfaces(x_l, y_l)
+    s += write_rod_surfaces(x_l, y_l, core_size)
     s+= '\n'
     s += write_kcode_ect()
     s += write_materials()
     #s += write_imp()
-    s += write_sdef()
+    s += write_sdef(core_size)
     s += write_tallys(x_l, y_l)
 
     return s
 
-if __name__ == '__main__':
+def gen_batch():
+    cring_min = 1
+    cring_max = 4
 
-    pin_pitch = 3
+    aring = 7
+
+    pp_min = .96
+    pp_max = 1.20
+
+    pp_div = 10
+
+    for rings in range(cring_max - cring_min + 1):
+        rings += 1
+
+        for p in range(pp_div):
+            p+=1
+
+            pp = (pp_max - pp_min) / p + pp_min
+            name = 'batch/AR{}pp{}.i'.format(str(rings),str(int(pp*1000)))
+            write_file(outputName=name, s =form_string(pp, 7, rings))
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    gen_batch()
+    pin_pitch = 2
     assembly_pitch = None
-    assembly_rings = 6
-    core_rings = 3
+    assembly_rings = 7
+    core_rings = 2
 
     write_file(outputName = 'test.i', s =form_string(pin_pitch, assembly_rings, core_rings))
