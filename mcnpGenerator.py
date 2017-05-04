@@ -47,7 +47,44 @@ def gen_full_core(pin_pitch, el_rings, core_rings, assembly_pitch = None):
         x_list.append([item - (xf * (ring+1)) for item in x_1])
         y_list.append([item - (yf * (ring + 1)) for item in y_1])
 
+        ################################################################
 
+        for ri in range(ring):
+
+            x_list.append([item + (xf * (ring+1)) for item in x_1])
+            y_list.append([item + (yf * (ring + 1)) - (ap * (ri +1)) for item in y_1])
+
+            x_list.append([item - (xf * (ring+1)) for item in x_1])
+            y_list.append([item + (yf * (ring + 1)) - (ap * (ri + 1)) for item in y_1])
+
+#######################################################################
+            x_list.append([item - (xf * (ri + 1)) for item in x_1])
+            y_list.append([item + (ap * (ring + 1)) - (yf * (ri + 1)) for item in y_1])
+
+
+            x_list.append([item + (xf * (ri + 1)) for item in x_1])
+            y_list.append([item + (ap * (ring + 1)) - (yf * (ri + 1)) for item in y_1])
+
+            x_list.append([item - (xf * (ri + 1)) for item in x_1])
+            y_list.append([item - (ap * (ring + 1)) + (yf * (ri + 1)) for item in y_1])
+
+            x_list.append([item + (xf * (ri + 1)) for item in x_1])
+            y_list.append([item - (ap * (ring + 1)) + (yf * (ri + 1)) for item in y_1])
+
+
+            ###############################################33333
+            #x_list.append([item for item in x_1])
+            #y_list.append(([item - (ap * (ring + 1)) for item in y_1]))
+
+            #x_list.append([item + (xf * (ring+1)) for item in x_1])
+            #y_list.append([item - (yf * (ring + 1)) for item in y_1])
+
+            #x_list.append([item - (xf * (ring+1)) for item in x_1])
+            #y_list.append([item - (yf * (ring + 1)) for item in y_1])
+
+
+
+    print len(x_list)
     for ind, it in enumerate(x_list):
         plt.plot(it, y_list[ind], 'o')
 
@@ -702,9 +739,15 @@ def write_file(outputName, s):
         f.write(s)
 
 
-def form_string():
+def form_string(pin_pitch, assembly_rings, core_rings):
 
-    gen_full_core(2, 7, 3, assembly_pitch = None)
+    gen_full_core(pin_pitch, assembly_rings, core_rings, assembly_pitch = None)
+
+
+    core_size = (pin_pitch * (assembly_rings)) * sin(60 * (pi / 180)) * (core_rings - .5) * 2
+
+    core_size
+
     exit()
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
@@ -728,4 +771,10 @@ def form_string():
     return s
 
 if __name__ == '__main__':
-    write_file(outputName = 'test.i', s =form_string())
+
+    pin_pitch = 3
+    assembly_pitch = None
+    assembly_rings = 6
+    core_rings = 3
+
+    write_file(outputName = 'test.i', s =form_string(pin_pitch, assembly_rings, core_rings))
