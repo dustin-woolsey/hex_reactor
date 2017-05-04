@@ -3,6 +3,58 @@ from numpy import sin, cos, linspace, array, pi
 import csv
 
 
+def gen_full_core(pin_pitch, el_rings, core_rings, assembly_pitch = None):
+    pp = pin_pitch
+    er = el_rings
+    cr = core_rings
+
+
+    if assembly_pitch:
+        ap = assembly_pitch
+
+    else:
+        #ap = (pp) * (er + 1) *(1 + cos(60 * pi/180))
+        ap = pp * sin(60 * (pi/180)) * ((2 * er ) - (.5 * pp * sin(60 * (pi/180))))
+
+
+
+    yf = cos(60 * (pi/180)) * ap
+    xf = sin(60 * (pi/180)) * ap
+
+
+    x_1, y_1 = gen_initial_rod_pos(pp, er)
+    x_list = [x_1]
+    y_list = [y_1]
+
+    for ring in range(cr - 1):
+        x_list.append([item for item in x_1])
+        y_list.append([item + (ap * (ring + 1)) for item in y_1])
+
+        x_list.append([item for item in x_1])
+        y_list.append(([item - (ap * (ring + 1)) for item in y_1]))
+
+        ####################################################
+
+        x_list.append([item + (xf * (ring+1)) for item in x_1])
+        y_list.append([item + (yf * (ring + 1)) for item in y_1])
+
+        x_list.append([item - (xf * (ring+1)) for item in x_1])
+        y_list.append([item + (yf * (ring + 1)) for item in y_1])
+
+        x_list.append([item + (xf * (ring+1)) for item in x_1])
+        y_list.append([item - (yf * (ring + 1)) for item in y_1])
+
+        x_list.append([item - (xf * (ring+1)) for item in x_1])
+        y_list.append([item - (yf * (ring + 1)) for item in y_1])
+
+
+    for ind, it in enumerate(x_list):
+        plt.plot(it, y_list[ind], 'o')
+
+    plt.show()
+    return x_list, y_list
+
+
 def gen_initial_rod_pos(pin_pitch, el_rings):
 
     x_li = [0.0]
@@ -37,7 +89,7 @@ def gen_initial_rod_pos(pin_pitch, el_rings):
             y_li.append(-y_off * (ring + 1))
 
 
-        for r in range(6 - ring):
+        for r in range((nr - 1) - ring):
             x_li.append((pp * (ring + 1))+ (x_off * (r)))
             y_li.append(0.0 + (y_off * r))
 
@@ -78,11 +130,12 @@ def gen_initial_rod_pos(pin_pitch, el_rings):
 
 
     x_l, y_l = clean_list()
-    print len(x_l)
+    #print len(x_l)
 
-    plt.plot(x_l, y_l, 'bo')
-    plt.show()
+    #plt.plot(x_l, y_l, 'bo')
+    #plt.show()
 
+    return x_l, y_l
 
 
 def read_rod_pos():
@@ -651,7 +704,7 @@ def write_file(outputName, s):
 
 def form_string():
 
-    gen_initial_rod_pos(2, 7)
+    gen_full_core(2, 7, 3, assembly_pitch = None)
     exit()
     x_l, y_l = get_all_rod_pos()
     s = write_intro_mat()
