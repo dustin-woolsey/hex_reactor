@@ -381,7 +381,7 @@ def fill_rod_position(x_l, y_l):
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 1000 + rod_ID + 10000
+            ID = assembly_ID * 1000 + rod_ID + 110000
             ID2 = assembly_ID * 1000 + rod_ID + 900000
 
             un = index + 1
@@ -414,7 +414,7 @@ def write_fuel_universes(x_l, y_l):
     s += 'c ******************************************************************************\n'
 
     u = 101
-    ID = 100200
+    ID = 1100200
 
 
     for index, x_i in enumerate(x_l):
@@ -496,7 +496,7 @@ def write_rod_surfaces(x_l, y_l, core_size):
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 1000 + rod_ID + 10000
+            ID = assembly_ID * 1000 + rod_ID + 110000
 
             s += ' {}       c/z   {: 10.6f}   {: 10.6f}   0.4572\n'.format(ID,x_it, y_it )
 
@@ -659,7 +659,7 @@ def write_materials():
     return s
 
 def write_tallys(x_l, y_l):
-    ID = 100100
+    ID = 1100200
     count = 0
 
     s = ''
@@ -746,7 +746,7 @@ def write_core_water_cell(x_l, y_l):
             assembly_ID = index + 1
             rod_ID = i + 1
 
-            ID = assembly_ID * 1000 + rod_ID + 10000
+            ID = assembly_ID * 1000 + rod_ID + 110000
             cnt += 1
 
             if cnt == 10:
@@ -815,7 +815,7 @@ def gen_batch():
             p+=1
 
             pp = (pp_max - pp_min) / p + pp_min
-            name = 'batch/AR{}pp{}.i'.format(str(rings),str(int(pp*1000)))
+            name = 'batch\AR{}pp{}.i'.format(str(rings),str(int(pp*1000)))
             write_file(outputName=name, s =form_string(pp, 7, rings))
 
 
@@ -825,10 +825,10 @@ def gen_batch():
 
 
 if __name__ == '__main__':
-    gen_batch()
-    pin_pitch = 2
+    #gen_batch()
+    pin_pitch = 0.984
     assembly_pitch = None
     assembly_rings = 7
-    core_rings = 2
+    core_rings = 8
 
     write_file(outputName = 'test.i', s =form_string(pin_pitch, assembly_rings, core_rings))
