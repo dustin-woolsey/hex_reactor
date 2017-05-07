@@ -775,7 +775,8 @@ def form_string(pin_pitch, assembly_rings, core_rings):
 
     core_size = ((pin_pitch * (assembly_rings)) * sin(60 * (pi / 180)) * (core_rings - .5) * 2) + 2.5
 
-
+    print len(x_l)
+    exit()
 
     s = write_intro_mat()
     s += 'c\n'
@@ -829,6 +830,6 @@ if __name__ == '__main__':
     pin_pitch = 0.984
     assembly_pitch = None
     assembly_rings = 7
-    core_rings = 8
+    core_rings = 9
 
     write_file(outputName = 'test.i', s =form_string(pin_pitch, assembly_rings, core_rings))
